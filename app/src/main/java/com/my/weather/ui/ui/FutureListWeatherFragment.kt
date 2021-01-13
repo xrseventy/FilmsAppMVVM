@@ -1,4 +1,4 @@
-package com.my.weather.ui.main
+package com.my.weather.ui.ui
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -8,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.my.weather.R
 
-class MainFragment : Fragment() {
+class FutureListWeatherFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = FutureListWeatherFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: FutureListWeatherViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -23,7 +23,7 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(FutureListWeatherViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
