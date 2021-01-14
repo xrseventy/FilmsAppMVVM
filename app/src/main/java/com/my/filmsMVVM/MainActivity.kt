@@ -1,8 +1,9 @@
-package com.my.weather
+package com.my.filmsMVVM
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.my.weather.ui.ui.FutureListWeatherFragment
+import com.my.filmsMVVM.ui.ui.FilmsListFragment
+import com.my.weather.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, FutureListWeatherFragment.newInstance())
+                    .replace(R.id.container, FilmsListFragment.newInstance())
                     .commitNow()
         }
     }

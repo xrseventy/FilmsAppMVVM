@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Weather">
-        <activity android:name=".single_movie.SingleMovie"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name="com.my.filmsMVVM.recycler_view.single_movie_detail.singleMovieDetailsActivity"></activity>
+        <activity android:name="com.my.filmsMVVM.recycler_view.RecyclerViewActivity" />
+        <activity android:name="com.my.filmsMVVM.single_movie.SingleMovie" />
+        <activity android:name="com.my.filmsMVVM.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
