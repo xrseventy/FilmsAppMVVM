@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ui.FutureListWeatherFragment">
+    tools:context="com.my.filmsMVVM.ui.ui.FilmsListWeatherFragment">
 
     <TextView
         android:id="@+id/message"

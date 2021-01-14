@@ -1,7 +1,8 @@
-package com.my.weather.data.response
+package com.my.filmsMVVM.data.response
 
 
 import com.google.gson.annotations.SerializedName
+//A data class that holds details about the user.
 
 data class MovieDetails(
     val budget: Int,

@@ -1,8 +1,6 @@
-package com.my.weather.data
+package com.my.filmsMVVM.data
 
-import com.google.gson.Gson
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import kotlinx.serialization.json.Json
+import com.my.filmsMVVM.data.repository.remote_data_source.TheMovieDbApiService
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
