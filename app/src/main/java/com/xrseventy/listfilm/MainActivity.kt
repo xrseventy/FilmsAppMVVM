@@ -1,9 +1,8 @@
-package com.my.filmsMVVM
+package com.xrseventy.listfilm
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.my.filmsMVVM.ui.ui.FilmsListFragment
-import com.my.weather.R
+import com.xrseventy.listfilm.ui.main.FilmsListFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,6 +15,4 @@ class MainActivity : AppCompatActivity() {
                     .commitNow()
         }
     }
-    //https://www.metaweather.com/api/
-    //https://openweathermap.org/api
 }

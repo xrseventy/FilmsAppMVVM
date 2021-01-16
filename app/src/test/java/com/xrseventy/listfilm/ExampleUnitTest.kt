@@ -1,4 +1,4 @@
-package com.my.weather
+package com.xrseventy.listfilm
 
 import org.junit.Test
 

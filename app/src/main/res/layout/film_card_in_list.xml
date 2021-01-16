@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cards_in_list"
+    android:id="@+id/cardViewMovieDetails"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="5dp"
@@ -13,22 +13,31 @@
     app:cardCornerRadius="2dp">
 
     <TextView
-        android:id="@+id/inItemLocation"
+        android:id="@+id/inItemId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"
-        android:text="info"
+        android:text="id"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/inItemDistance"
+        android:id="@+id/inItemTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="5dp"
-        android:text="info" />
+        android:text="title" />
+
+    <TextView
+        android:id="@+id/inItemRating"
+        android:layout_width="287dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginBottom="5dp"
+        android:text="rating" />
 
 </androidx.cardview.widget.CardView>
