@@ -2,10 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/filmListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.my.filmsMVVM.ui.ui.FilmsListWeatherFragment">
+
+    >
 
     <TextView
         android:id="@+id/message"
@@ -14,22 +15,22 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="28dp"
         android:text="MainFragment"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewFilmList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
+       />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerViewFilmList"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/message"
-        tools:listitem="@layout/cards_in_list" />
+        tools:listitem="@layout/film_card_in_list" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

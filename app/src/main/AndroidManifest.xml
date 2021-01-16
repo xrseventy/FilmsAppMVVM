@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.my.weather">
+    package="com.xrseventy.listfilm">
 
     <application
         android:allowBackup="true"
@@ -8,11 +8,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Weather">
-        <activity android:name="com.my.filmsMVVM.recycler_view.single_movie_detail.singleMovieDetailsActivity"></activity>
-        <activity android:name="com.my.filmsMVVM.recycler_view.RecyclerViewActivity" />
-        <activity android:name="com.my.filmsMVVM.single_movie.SingleMovie" />
-        <activity android:name="com.my.filmsMVVM.MainActivity">
+        android:theme="@style/Theme.ListFilm">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
