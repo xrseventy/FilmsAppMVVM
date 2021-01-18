@@ -17,5 +17,5 @@ import com.xrseventy.listfilm.data.repository.model.MovieDetails
 //}
     // TODO: Implement the ViewModel
 
-class FilmListViewModel(@Suppress("UNUSED_PARAMETER")movieProperty: MovieDetails, app: Application) : AndroidViewModel(app) {
-}
+//class FilmListViewModel(@Suppress("UNUSED_PARAMETER")movieProperty: MovieDetails, app: Application) : AndroidViewModel(app) {
+//}

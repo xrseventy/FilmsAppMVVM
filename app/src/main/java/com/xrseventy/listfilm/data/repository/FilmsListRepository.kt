@@ -2,7 +2,7 @@ package com.xrseventy.listfilm.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.my.listFilms.data.repository.remote_data_source.TheMovieDbApiService
+
 import com.xrseventy.listfilm.data.repository.model.MovieDetails
 import retrofit2.Call
 import retrofit2.Callback
