@@ -11,21 +11,26 @@ import retrofit2.http.Path
 
 object NetworkModule {
     const val API_KEY = "923bb540f8268da1eb90ceff700bfe02"
-    const val BASE_URL = "https://api.themoviedb.org/3/"
+    private const val BASE_URL = "https://api.themoviedb.org/3/"
     const val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w342"
 
+
+//    HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+//    interceptor.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
+//
+//    OkHttpClient client = new OkHttpClient.Builder()
+//    .addInterceptor(interceptor)
+//    .build();
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-
     val theMovieDbApiService: TheMovieDbApiService = retrofit.create()
 
-    //FIX ME
-
 }
+
 
 
 //On Coroutine

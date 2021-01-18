@@ -7,8 +7,8 @@ import com.xrseventy.listfilm.data.repository.model.MovieDetails
 import com.xrseventy.listfilm.R
 import com.xrseventy.listfilm.ui.recyclerView.FilmListViewHolder
 
-class FilmsListAdapter(private val filmsList: List<MovieDetails>) :
-//class FilmsListAdapter(private val filmsList: List<film>) :
+//class FilmsListAdapter(private val filmsList: List<MovieDetails>) :
+class FilmsListAdapter(private val filmsList: List<film>) :
     RecyclerView.Adapter<FilmListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmListViewHolder {
