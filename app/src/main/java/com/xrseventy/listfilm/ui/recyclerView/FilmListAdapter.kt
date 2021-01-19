@@ -3,12 +3,13 @@ package com.xrseventy.listfilm.ui.main
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.xrseventy.listfilm.data.repository.model.MovieDetails
 import com.xrseventy.listfilm.R
+import com.xrseventy.listfilm.data.repository.model.MovieItem
+import com.xrseventy.listfilm.data.repository.model.PopularMoviesList
 import com.xrseventy.listfilm.ui.recyclerView.FilmListViewHolder
 
-//class FilmsListAdapter(private val filmsList: List<MovieDetails>) :
-class FilmsListAdapter(private val filmsList: List<film>) :
+class FilmsListAdapter(private val filmsList: List<MovieItem>) :
+//class FilmsListAdapter(private val filmsList: List<film>) :
     RecyclerView.Adapter<FilmListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmListViewHolder {
@@ -23,15 +24,14 @@ class FilmsListAdapter(private val filmsList: List<film>) :
     override fun getItemCount() = filmsList.size
 
     override fun onBindViewHolder(holder: FilmListViewHolder, position: Int) {
-        val currentPosition = filmsList[position]
+        val currentPosition = filmsList.get(position)
         val savedFilmListTitle = currentPosition.title
         val savedFilmListId = currentPosition.id
-        val savedFilmListRating = currentPosition.rating
+        val savedFilmListRating = currentPosition.voteAverage
 
 
+                    holder.bind(savedFilmListTitle, savedFilmListId, savedFilmListRating)
 
-
-        holder.bind(savedFilmListTitle, savedFilmListId, savedFilmListRating)
     }
 
 

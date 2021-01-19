@@ -1,13 +1,5 @@
 package com.xrseventy.listfilm.data.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-
-import com.xrseventy.listfilm.data.repository.model.MovieDetails
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-
 class FilmsListRepository {
 //    private val webservice: TheMovieDbApiService = TODO()
 //    // ...

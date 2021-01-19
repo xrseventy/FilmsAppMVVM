@@ -1,13 +1,9 @@
 package com.my.listFilms.data.repository.remote_data_source
 
-import com.xrseventy.listfilm.data.repository.model.MovieDetails
 import com.xrseventy.listfilm.data.repository.remote_data_source.TheMovieDbApiService
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
-import retrofit2.http.GET
-import retrofit2.http.Path
 
 object NetworkModule {
     const val API_KEY = "923bb540f8268da1eb90ceff700bfe02"
