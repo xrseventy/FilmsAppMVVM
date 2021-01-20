@@ -81,9 +81,7 @@ class FilmsListFragment : Fragment() {
 //                toastAdd.show()
             }
         })
-        viewModel.makeApiCall()
-
-        // TODO: Use the ViewModel
+        viewModel.makeApiCall() // TODO var 2 it need to comment
 
         Log.d(this.toString(), "log onActivityCreated")
     }
