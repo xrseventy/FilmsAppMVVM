@@ -31,7 +31,7 @@ interface TheMovieDbApiService {
 
 
     @GET("movie/popular")
-    fun getMoviePopular(@Query("api_key") apiKey: String = API_KEY): Call<PopularMoviesList>
+    fun getMoviePopular(@Query("api_key") apiKey: String = API_KEY,  @Query("language") systemLang: String): Call<PopularMoviesList>
     //fun getMovieDetails(@Path("movie_id") movieId: Int, @Query("api_key") apiKey: String = API_KEY): Call<List<MovieDetails>>
 
 }

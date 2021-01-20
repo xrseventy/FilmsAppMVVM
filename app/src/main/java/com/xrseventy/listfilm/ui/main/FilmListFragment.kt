@@ -8,11 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.my.listFilms.data.repository.remote_data_source.NetworkModule
 
 import com.xrseventy.listfilm.R
+import com.xrseventy.listfilm.data.repository.FilmsListRepository
 
 import com.xrseventy.listfilm.data.repository.model.Configuration
 import com.xrseventy.listfilm.data.repository.model.MovieItem
@@ -25,18 +28,10 @@ import retrofit2.Response
 
 class FilmsListFragment : Fragment() {
 
-    //private var layoutManager: RecyclerView.LayoutManager? = null
-    // private var adapter: RecyclerView.Adapter<FilmListViewHolder>? = null
-    //private var recyclerViewFilmList = view?.findViewById<RecyclerView>(R.id.recyclerViewFilmList)
-
-
     private val theMovieDbApiService = NetworkModule.theMovieDbApiService
     private val movieDetailsList = listOf<MovieItem>()
 
-    //private lateinit var viewModel: FilmListViewModel
-
-//    private val viewModel: FilmListViewModel by lazy {
-//        ViewModelProvider(this).get(FilmListViewModel::class.java)
+    private lateinit var viewModel: FilmListViewModel
 //    }
 //    private val film = listOf(
 //            film("Raising Arizona", 1987, 1.2),
@@ -49,12 +44,6 @@ class FilmsListFragment : Fragment() {
 //            film("Knowing", 2009, 1.2)
 //    )
 
-//    private val MovieDetailsList = listOf<MovieDetails>(
-//    MovieDetails(1, 1, "qwe", 1.2, "poster", "12.02", 1, 1,"1",
-//    "", "", true, 1.2)
-//   )
-
-
     companion object {
         fun newInstance() = FilmsListFragment()
     }
@@ -63,9 +52,6 @@ class FilmsListFragment : Fragment() {
         super.onCreate(savedInstanceState)
         retainInstance = true
         Log.d(this.toString(), "log onCreate")
-
-        //  val moviId: Int = requireArguments().getInt(MOVIE_KEY)
-
     }
 
     override fun onCreateView(
@@ -79,16 +65,24 @@ class FilmsListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(this.toString(), "log onViewCreated")
-        //val recyclerViewFilmList: RecyclerView = view.findViewById(R.id.recyclerViewFilmList)
-
-       // recyclerViewFilmList.adapter = FilmsListAdapter(movieDetailsList)
-
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        //viewModel = ViewModelProvider(this).get(FilmListViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(FilmListViewModel::class.java)
+        viewModel.getRecyclerMovieListDataObserver().observe(this, Observer <List<MovieItem>> {
+            if (it != null){
+                updateAdapter(it)
+            }
+            else
+            {
+                val toast= Toast.makeText(activity, "ERROR", Toast.LENGTH_LONG)
+//                toastAdd.setGravity(Gravity.TOP, 0, 170)
+//                toastAdd.show()
+            }
+        })
+        viewModel.makeApiCall()
+
         // TODO: Use the ViewModel
 
         Log.d(this.toString(), "log onActivityCreated")
@@ -102,56 +96,6 @@ class FilmsListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
-        val popularMovieCall: Call<PopularMoviesList> = theMovieDbApiService.getMoviePopular()
-
-        Log.d(this.toString(), "log onResume")
-        popularMovieCall.enqueue(object : Callback<PopularMoviesList> {
-            override fun onFailure(call: Call<PopularMoviesList>, t: Throwable) {
-                val toastAdd = Toast.makeText(activity, "2", Toast.LENGTH_LONG)
-                toastAdd.setGravity(Gravity.TOP, 0, 170)
-                toastAdd.show()
-            }
-
-            override fun onResponse(
-                call: Call<PopularMoviesList>,
-                response: Response<PopularMoviesList>
-
-            ) {
-                val popularMovieList: PopularMoviesList? = response.body()
-                val url = response.raw().request().url()
-                Log.d(this.toString(), "log onResponse $popularMovieList")
-                Log.d(this.toString(), "log PopularMoviesList = $url")
-
-                val item: List<MovieItem> = popularMovieList!!.results
-
-                updateAdapter(item)
-
-                Log.d(this.toString(), "log MOVIE $item")
-
-                val toastAdd = Toast.makeText(activity, "3", Toast.LENGTH_LONG)
-                toastAdd.setGravity(Gravity.TOP, 0, 170)
-                toastAdd.show()
-
-            }
-
-        })
-
-
-        val configCall: Call<Configuration> = theMovieDbApiService.getConfiguration()
-        configCall.enqueue(object : Callback<Configuration> {
-            override fun onResponse(call: Call<Configuration>, response: Response<Configuration>) {
-                val urlconfig = response.raw().request().url()
-
-                val modelConfig = response.body()
-                Log.d(this.toString(), "url config log = $urlconfig")
-                Log.d(this.toString(), " config log = ${modelConfig}")
-            }
-            override fun onFailure(call: Call<Configuration>, t: Throwable) {
-            }
-
-        })
-
     }
 
 }

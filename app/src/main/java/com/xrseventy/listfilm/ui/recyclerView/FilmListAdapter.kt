@@ -1,8 +1,11 @@
 package com.xrseventy.listfilm.ui.main
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.annotations.SerializedName
+import com.my.listFilms.data.repository.remote_data_source.NetworkModule.POSTER_BASE_URL
 import com.xrseventy.listfilm.R
 import com.xrseventy.listfilm.data.repository.model.MovieItem
 import com.xrseventy.listfilm.data.repository.model.PopularMoviesList
@@ -28,9 +31,12 @@ class FilmsListAdapter(private val filmsList: List<MovieItem>) :
         val savedFilmListTitle = currentPosition.title
         val savedFilmListId = currentPosition.id
         val savedFilmListRating = currentPosition.voteAverage
+        val savedFilmPosterPath = currentPosition.posterPath
+        val posterPath = POSTER_BASE_URL + savedFilmPosterPath
+        val releaseDate = currentPosition.releaseDate
+        Log.d(this.toString(), "posterPath $posterPath")
 
-
-                    holder.bind(savedFilmListTitle, savedFilmListId, savedFilmListRating)
+        holder.bind(savedFilmListTitle, savedFilmListId, savedFilmListRating,posterPath, releaseDate)
 
     }
 
