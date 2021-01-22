@@ -16,39 +16,21 @@ import java.util.*
 
 
 class FilmsListRepository {
-//    private val webservice: TheMovieDbApiService = TODO()
-//    // ...
-//    fun getMovieDetails(movieId: String): LiveData<MovieDetails> {
-//        // This isn't an optimal implementation. We'll fix it later.
-//        val data = MutableLiveData<MovieDetails>()
-//
-//        webservice.getMovieDetails().enqueue(object : Callback<MovieDetails> {
-//            override fun onResponse(call: Call<MovieDetails>, response: Response<MovieDetails>) {
-//                data.value = response.body()
-//            }
-//            // Error case is left out for brevity.
-//            override fun onFailure(call: Call<MovieDetails>, t: Throwable) {
-//                TODO()
-//            }
-//        })
-//        return data
-//    }
 
-    fun makeApiCallGetListPopularMovies(): LiveData<PopularMoviesList> {
-
-        val movieList = MutableLiveData<List<MovieItem>>()
+    private fun makeApiCallGetListPopularMovies(): LiveData<PopularMoviesList> {
 
         val popularMovieList = MutableLiveData<PopularMoviesList>()
 
         val popularMovieCall: Call<PopularMoviesList> =
             NetworkModule.theMovieDbApiService.getMoviePopular(
-                NetworkModule.API_KEY, (Locale.getDefault().language.toString())
+                NetworkModule.API_KEY,
+                (Locale.getDefault().language.toString())
             )
 
-        Log.d(this.toString(), "log onResume")
+        Log.d(this.toString(), "log 1")
         popularMovieCall.enqueue(object : Callback<PopularMoviesList> {
             override fun onFailure(call: Call<PopularMoviesList>, t: Throwable) {
-                movieList.postValue(null)
+                popularMovieList.postValue(null)
             }
 
             override fun onResponse(
@@ -56,12 +38,12 @@ class FilmsListRepository {
                 response: Response<PopularMoviesList>
 
             ) {
-                popularMovieList.value = response.body()
+                val url = response.raw().request().url()
+                Log.d(this.toString(), "log url = $url")
 
-//                val url = response.raw().request().url()
+                popularMovieList.value = response.body()
 //                Log.d(this.toString(), "log onResponse $popularMovieList")
-//                Log.d(this.toString(), "log PopularMoviesList = $url")
-//                val item: List<MovieItem> = popularMovieList!!.results
+//                val item: List<MovieItem> = popularMovieList.value!!.results
 //                if (response.isSuccessful) {
 //                    movieList.postValue(item)
 //                } else {
@@ -70,11 +52,12 @@ class FilmsListRepository {
 //                Log.d(this.toString(), "log MOVIE $item")
             }
         })
+
         return popularMovieList
     }
 
 
-//        val configCall: Call<Configuration> = NetworkModule.theMovieDbApiService.getConfiguration()
+//        val configCall: Call<Configuration> = NetworkModule.theMovieDbApiService.getConfiguration()//TODO get config info
 //        configCall.enqueue(object : Callback<Configuration> {
 //            override fun onResponse(call: Call<Configuration>, response: Response<Configuration>) {
 //                val urlconfig = response.raw().request().url()
@@ -89,18 +72,13 @@ class FilmsListRepository {
 //        })
 
 
-    fun getListOfPopularMovies(): LiveData<List<MovieItem>> {
+    fun getListOfPopularMovies(): MutableLiveData<List<MovieItem>> {
+        Log.d(this.toString(), "log 3")
         val popularList = makeApiCallGetListPopularMovies()
 
-        val resultsMovieList = popularList.map { PopularMoviesList ->  PopularMoviesList.results}
+        val resultsMovieList : MutableLiveData<List<MovieItem>> =
+            popularList.map { PopularMoviesList ->  PopularMoviesList.results} as MutableLiveData<List<MovieItem>>
      return resultsMovieList
 
-//        val userLD : LiveData<User> = ...;
-//        val userFullNameLD: LiveData<String> = userLD.map { user -> u
-
-
-
     }
-
-
 }

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -28,10 +29,8 @@ import retrofit2.Response
 
 class FilmsListFragment : Fragment() {
 
-    private val theMovieDbApiService = NetworkModule.theMovieDbApiService
-    private val movieDetailsList = listOf<MovieItem>()
-
     private lateinit var viewModel: FilmListViewModel
+
 //    }
 //    private val film = listOf(
 //            film("Raising Arizona", 1987, 1.2),
@@ -59,35 +58,35 @@ class FilmsListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         Log.d(this.toString(), "log onCreateView")
+
+
+        viewModel = ViewModelProvider(this).get(FilmListViewModel::class.java)
+        viewModel.getRecyclerMovieListDataObserver().observe(this, Observer<List<MovieItem>> {
+            if (it != null) {
+                updateAdapter(it)
+            } else {
+                val toast = Toast.makeText(activity, "ERROR", Toast.LENGTH_LONG)
+                toast.setGravity(Gravity.TOP, 0, 170)
+                toast.show()
+            }
+        })
+
         return inflater.inflate(R.layout.film_list_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(this.toString(), "log onViewCreated")
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(FilmListViewModel::class.java)
-        viewModel.getRecyclerMovieListDataObserver().observe(this, Observer <List<MovieItem>> {
-            if (it != null){
-                updateAdapter(it)
-            }
-            else
-            {
-                val toast= Toast.makeText(activity, "ERROR", Toast.LENGTH_LONG)
-//                toastAdd.setGravity(Gravity.TOP, 0, 170)
-//                toastAdd.show()
-            }
-        })
-        viewModel.makeApiCall() // TODO var 2 it need to comment
-
-        Log.d(this.toString(), "log onActivityCreated")
     }
 
-    private fun updateAdapter(movieList: List<MovieItem>){
-        val recyclerViewFilmList: RecyclerView = view!!.findViewById(R.id.recyclerViewFilmList)
+    private fun updateAdapter(movieList: List<MovieItem>) {
+
+        val recyclerViewFilmList: RecyclerView = view!!.findViewById(R.id.recyclerViewFilmList)         //TODO del !!
         recyclerViewFilmList.adapter = FilmsListAdapter(movieList)
 
     }
