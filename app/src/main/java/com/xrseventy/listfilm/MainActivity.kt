@@ -2,7 +2,7 @@ package com.xrseventy.listfilm
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.xrseventy.listfilm.ui.main.FilmsListFragment
+import com.xrseventy.listfilm.ui.fragment.FilmsListFragment
 
 class MainActivity : AppCompatActivity() {
 
