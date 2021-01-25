@@ -1,8 +1,10 @@
 package com.xrseventy.listfilm.ui.recyclerView
 
+import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -33,7 +35,5 @@ class FilmListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         Glide.with(itemView.context)
             .load(imageUri)
             .into(imageViewItem)
-    }
-
-
+        }
 }

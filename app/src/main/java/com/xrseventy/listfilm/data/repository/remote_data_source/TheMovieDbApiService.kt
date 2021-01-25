@@ -1,10 +1,9 @@
 package com.xrseventy.listfilm.data.repository.remote_data_source
 
 import com.my.listFilms.data.repository.remote_data_source.NetworkModule.API_KEY
-import com.xrseventy.listfilm.data.repository.model.Configuration
-import com.xrseventy.listfilm.data.repository.model.MovieItem
+import com.xrseventy.listfilm.data.model.Configuration
 
-import com.xrseventy.listfilm.data.repository.model.PopularMoviesList
+import com.xrseventy.listfilm.data.model.PopularMoviesList
 import retrofit2.Call
 import retrofit2.http.*
 

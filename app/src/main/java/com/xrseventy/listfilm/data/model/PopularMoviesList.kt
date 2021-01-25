@@ -1,4 +1,4 @@
-package com.xrseventy.listfilm.data.repository.model
+package com.xrseventy.listfilm.data.model
 
 
 import com.google.gson.annotations.SerializedName

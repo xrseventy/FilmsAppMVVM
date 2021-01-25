@@ -3,12 +3,10 @@ package com.xrseventy.listfilm.data.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.map
-import com.google.gson.annotations.SerializedName
 import com.my.listFilms.data.repository.remote_data_source.NetworkModule
-import com.xrseventy.listfilm.data.repository.model.MovieItem
-import com.xrseventy.listfilm.data.repository.model.PopularMoviesList
+import com.xrseventy.listfilm.data.model.MovieItem
+import com.xrseventy.listfilm.data.model.PopularMoviesList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -72,8 +70,12 @@ class FilmsListRepository {
 //        })
 
 
+    fun getNextPageListOfPopularMovies(){
+
+    }
     fun getListOfPopularMovies(): MutableLiveData<List<MovieItem>> {
         Log.d(this.toString(), "log 3")
+
         val popularList = makeApiCallGetListPopularMovies()
 
         val resultsMovieList : MutableLiveData<List<MovieItem>> =
