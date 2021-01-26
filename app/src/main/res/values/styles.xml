@@ -5,4 +5,9 @@
         <item name="colorControlNormal">@color/white</item>
         <item name="colorControlActivated">@android:color/holo_orange_dark</item>
     </style>
+
+    <style name="Theme.Movies.MaterialCardView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
 </resources>

@@ -15,100 +15,111 @@
     app:cardBackgroundColor="@color/background_900"
     >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="407dp"
-        android:layout_height="595dp"
-        app:layout_constraintEnd_toEndOf="@+id/inItemGenerers"
-        app:layout_constraintStart_toEndOf="@+id/inItemGenerers">
 
-        <TextView
-            android:id="@+id/inItemNumReviews"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:text="123 reviews"
-            android:textColor="@color/white"
-            android:textSize="9sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="83dp"
-            tools:layout_editor_absoluteY="262dp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/movieItemList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageViewItem"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:foreground="@drawable/gradient_shape"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
+            app:layout_constraintDimensionRatio="200:250"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            />
+
 
         <TextView
             android:id="@+id/inItemGenerers"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="67dp"
             android:text="Genres"
             android:textColor="@color/pink_accent_400"
-            android:textSize="15sp"
-            tools:layout_editor_absoluteX="83dp"
-            tools:layout_editor_absoluteY="275dp" />
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <TextView
+            android:id="@+id/inItemNumReviews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="1dp"
+            android:text="123 reviews"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/ratingBar"
+            app:layout_constraintTop_toTopOf="@+id/ratingBar" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:numStars="5"
+            android:rating="0.7"
+
+
+            android:stepSize="0.5"
+            android:theme="@style/MyRatingBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inItemGenerers" />
 
         <TextView
             android:id="@+id/inItemTitle"
-            android:layout_width="189dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="17dp"
-            android:layout_marginBottom="17dp"
+            android:layout_marginTop="5dp"
             android:inputType="textMultiLine"
             android:text="Title "
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/inItemReleaseDate"
-            app:layout_constraintEnd_toEndOf="@+id/imageViewItem"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/imageViewItem"
-            app:layout_constraintTop_toTopOf="@+id/ratingBar"
-            app:layout_constraintVertical_bias="0.45" />
-
-        <TextView
-            android:id="@+id/inItemReleaseDate"
-            android:layout_width="75dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="300dp"
-            android:text="releaseDate"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/inItemTitle"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
-        <ImageView
-            android:id="@+id/imageViewItem"
-            android:layout_width="200dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="36dp"
-            android:adjustViewBounds="false"
-            android:foreground="@drawable/gradient_shape"
-            android:scaleType="centerCrop"
-            android:src="@drawable/gradient_shape"
-            app:layout_constraintBottom_toTopOf="@+id/inItemReleaseDate"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:srcCompat="@tools:sample/avatars" />
+        <TextView
+            android:id="@+id/inItemReleaseDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:text="releaseDate"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@+id/inItemTitle"
+            app:layout_constraintTop_toBottomOf="@+id/inItemTitle"
+            tools:ignore="SmallSp" />
 
-        <RatingBar
-            android:id="@+id/ratingBar"
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="83dp"
-            android:layout_height="17dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="222dp"
-            android:layout_marginBottom="36dp"
-            android:numStars="5"
-            android:rating="0.7"
-            android:stepSize="0.5"
-            android:theme="@style/MyRatingBar"
-            app:layout_constraintBottom_toTopOf="@+id/inItemReleaseDate"
-            app:layout_constraintStart_toStartOf="@+id/imageViewItem"
-            app:layout_constraintTop_toTopOf="parent" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/nameOfMovieListView"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+
+        <!--            android:ellipsize="end"-->
+        <!--            android:maxLines="1"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            android:textSize="13sp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/movieOfListImage"-->
+        <!--            tools:text="TEXT" />-->
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 </androidx.cardview.widget.CardView>
