@@ -8,7 +8,7 @@ import retrofit2.create
 object NetworkModule {
     const val API_KEY = "923bb540f8268da1eb90ceff700bfe02"
     private const val BASE_URL = "https://api.themoviedb.org/3/"
-    const val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w342"
+    const val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500"
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)

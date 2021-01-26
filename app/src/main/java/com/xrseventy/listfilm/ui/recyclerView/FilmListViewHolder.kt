@@ -19,9 +19,9 @@ class FilmListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private var inItemReleaseDate: TextView? = null
 
     init {
-        inItemId = itemView.findViewById(R.id.inItemId)
+       // inItemId = itemView.findViewById(R.id.inItemId)
         inItemTitle = itemView.findViewById(R.id.inItemTitle)
-        inItemRating = itemView.findViewById(R.id.inItemRating)
+        //inItemRating = itemView.findViewById(R.id.inItemRating)
         imageViewItem = itemView.findViewById(R.id.imageViewItem)
         inItemReleaseDate = itemView.findViewById(R.id.inItemReleaseDate)
     }

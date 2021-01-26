@@ -55,66 +55,52 @@ class FilmsListRepository {
         return popularMovieList
     }
 
-    private fun getConfigurationApiCall() : LiveData<Configuration>{
-
-        val configurationTheMovieDb = MutableLiveData<Configuration>()
-
-        val configurationCall: Call<Configuration> =
-            NetworkModule.theMovieDbApiService.getConfiguration(NetworkModule.API_KEY
-            )
-
-        configurationCall.enqueue(object : Callback<Configuration> {
-
-            override fun onFailure(call: Call<Configuration>, t: Throwable) {
-                configurationTheMovieDb.postValue(null)
-            }
-
-            override fun onResponse(
-                call: Call<Configuration>,
-                response: Response<Configuration>
-
-            ) {
-                val url = response.raw().request().url()
-                Log.d(this.toString(), "log url = $url")
-
-                configurationTheMovieDb.value = response.body()
-//                Log.d(this.toString(), "log onResponse $popularMovieList")
-//                val item: List<MovieItem> = popularMovieList.value!!.results
-//                if (response.isSuccessful) {
-//                    movieList.postValue(item)
-//                } else {
-//                    movieList.postValue(null)
-//                }
-//                Log.d(this.toString(), "log MOVIE $item")
-            }
-        })
-        return configurationTheMovieDb
-
-    }
-
-//        val configCall: Call<Configuration> = NetworkModule.theMovieDbApiService.getConfiguration()//TODO get config info
-//        configCall.enqueue(object : Callback<Configuration> {
-//            override fun onResponse(call: Call<Configuration>, response: Response<Configuration>) {
-//                val urlconfig = response.raw().request().url()
+//    private fun getConfigurationApiCall() : Configuration{
+//        Log.d(this.toString(), "log 2")
 //
-//                val modelConfig = response.body()
-//                Log.d(this.toString(), "url config log = $urlconfig")
-//                Log.d(this.toString(), " config log = ${modelConfig}")
-//            }
+//        val configurationTheMovieDb = MutableLiveData<Configuration>()
+//
+//        val configurationCall: Call<Configuration> =
+//            NetworkModule.theMovieDbApiService.getConfiguration(NetworkModule.API_KEY
+//            )
+//
+//        configurationCall.enqueue(object : Callback<Configuration> {
+//
 //            override fun onFailure(call: Call<Configuration>, t: Throwable) {
+//                configurationTheMovieDb.postValue(null)
+//                Log.d(this.toString(), "log 3")
 //            }
 //
+//            override fun onResponse(
+//                call: Call<Configuration>,
+//                response: Response<Configuration>
+//
+//            ) {
+//                Log.d(this.toString(), "log 4")
+//                configurationTheMovieDb.value = response.body()
+//                val url = response.raw().request().url()
+//                Log.d(this.toString(), "log url = $url")
+//
+//            }
 //        })
-
-//    fun getConfigurationOFilmList(){
+//        return configurationTheMovieDb
+//
+//    }
+//
+//
+//
+//    fun getConfigurationOfImages() : String {
+//        Log.d(this.toString(), "log 1")
 //        val configurationTheMovieDb = getConfigurationApiCall()
-//        return configurationTheMovieDb.map { Configuration ->  Configuration.changeKeys} as MutableLiveData<Configuration>
+//        conf
+//        return configurationTheMovieDb.map { Configuration ->  Configuration.images.baseUrl.toString()}
 //
 //    }
 
 
     fun getListOfPopularMovies(): MutableLiveData<List<MovieItem>> {
         val popularList = makeApiCallGetListPopularMovies()
+
 
         return popularList.map { PopularMoviesList ->  PopularMoviesList.results} as MutableLiveData<List<MovieItem>>
 

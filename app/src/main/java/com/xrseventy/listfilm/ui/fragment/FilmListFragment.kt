@@ -1,6 +1,7 @@
 package com.xrseventy.listfilm.ui.fragment
 
 import FilmListClickListene
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -11,6 +12,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xrseventy.listfilm.R
 import com.xrseventy.listfilm.data.model.MovieItem
@@ -41,14 +44,22 @@ class FilmsListFragment : Fragment(), FilmListClickListene {
             } else {
                 Log.d (this.toString(), "Error loading list")
             }
+
         })
 
+        //viewModel.getConfiguration()
         return inflater.inflate(R.layout.film_list_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerViewFilmList = view.findViewById(R.id.recyclerViewFilmList)
+        if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            recyclerViewFilmList.layoutManager = GridLayoutManager(view.context, 2)
+        } else {
+            recyclerViewFilmList.layoutManager =
+                LinearLayoutManager(view.context, RecyclerView.HORIZONTAL, false)
+        }
     }
 
     private fun updateAdapter(movieList: List<MovieItem>) {
