@@ -51,7 +51,7 @@
 
 
         <TextView
-            android:id="@+id/inItemNumReviews"
+            android:id="@+id/inItemVoteCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -71,10 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:numStars="5"
-            android:rating="0.7"
-
-
-            android:stepSize="0.5"
+            android:stepSize="0.2"
             android:theme="@style/MyRatingBar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/inItemGenerers" />
@@ -104,21 +101,6 @@
             app:layout_constraintStart_toStartOf="@+id/inItemTitle"
             app:layout_constraintTop_toBottomOf="@+id/inItemTitle"
             tools:ignore="SmallSp" />
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/nameOfMovieListView"-->
-        <!--            android:layout_width="0dp"-->
-        <!--            android:layout_height="wrap_content"-->
-
-        <!--            android:ellipsize="end"-->
-        <!--            android:maxLines="1"-->
-        <!--            android:textColor="@color/white"-->
-        <!--            android:textSize="13sp"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/movieOfListImage"-->
-        <!--            tools:text="TEXT" />-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

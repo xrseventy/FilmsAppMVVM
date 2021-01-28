@@ -1,5 +1,5 @@
 import com.xrseventy.listfilm.data.model.MovieItem
 
-interface FilmListClickListene {
+interface FilmListClickListener {
     fun onItemClick( movieItem: MovieItem)
 }

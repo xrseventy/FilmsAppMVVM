@@ -5,7 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import com.my.listFilms.data.repository.remote_data_source.NetworkModule
-import com.xrseventy.listfilm.data.model.Configuration
+import com.my.listFilms.data.repository.remote_data_source.NetworkModule.theMovieDbApiService
+import com.xrseventy.listfilm.data.model.GenresItem
+import com.xrseventy.listfilm.data.model.GenresList
 import com.xrseventy.listfilm.data.model.MovieItem
 import com.xrseventy.listfilm.data.model.PopularMoviesList
 import retrofit2.Call
@@ -19,13 +21,10 @@ class FilmsListRepository {
     private fun makeApiCallGetListPopularMovies(): LiveData<PopularMoviesList> {
 
         val popularMovieList = MutableLiveData<PopularMoviesList>()
-
-        val popularMovieCall: Call<PopularMoviesList> =
-            NetworkModule.theMovieDbApiService.getMoviePopular(
-                NetworkModule.API_KEY,
-                (Locale.getDefault().language.toString())
-            )
-
+        val popularMovieCall: Call<PopularMoviesList> = theMovieDbApiService.getMoviePopular(
+            NetworkModule.API_KEY,
+            (Locale.getDefault().language.toString())
+        )
         popularMovieCall.enqueue(object : Callback<PopularMoviesList> {
 
             override fun onFailure(call: Call<PopularMoviesList>, t: Throwable) {
@@ -35,27 +34,68 @@ class FilmsListRepository {
             override fun onResponse(
                 call: Call<PopularMoviesList>,
                 response: Response<PopularMoviesList>
-
             ) {
                 val url = response.raw().request().url()
                 Log.d(this.toString(), "log url = $url")
-
                 popularMovieList.value = response.body()
-//                Log.d(this.toString(), "log onResponse $popularMovieList")
-//                val item: List<MovieItem> = popularMovieList.value!!.results
-//                if (response.isSuccessful) {
-//                    movieList.postValue(item)
-//                } else {
-//                    movieList.postValue(null)
-//                }
-//                Log.d(this.toString(), "log MOVIE $item")
             }
         })
 
         return popularMovieList
     }
 
-//    private fun getConfigurationApiCall() : Configuration{
+    private fun getGenreApiCall(): LiveData<GenresList> {
+        val movieGenres = MutableLiveData<GenresList>()
+        val movieGenre: Call<GenresList> = theMovieDbApiService.getGenre(
+            NetworkModule.API_KEY,
+            (Locale.getDefault().language.toString())
+        )
+        movieGenre.enqueue(object : Callback<GenresList> {
+
+            override fun onFailure(call: Call<GenresList>, t: Throwable) {
+                movieGenres.value = null
+            }
+
+            override fun onResponse(
+                call: Call<GenresList>,
+                response: Response<GenresList>
+
+            ) {
+                // val movieGenres: GenresList? = response.body()
+                movieGenres.value = response.body()
+                val url = response.raw().request().url()
+                Log.d(this.toString(), "log movieGenres $movieGenres")
+                Log.d(this.toString(), "log genreUrl = $url")
+            }
+        })
+        //https://api.themoviedb.org/3/genre/movie/list?api_key=923bb540f8268da1eb90ceff700bfe02&language=en-US
+        return movieGenres
+    }
+
+
+    fun getListGenres(): LiveData<List<GenresItem>> {
+
+        val loadMovieGenres: LiveData<GenresList> = getGenreApiCall()
+        val movieGenresItem: LiveData<List<GenresItem>> =
+            loadMovieGenres.map { GenresList -> GenresList.genres }
+
+        Log.d(this.toString(), "log genres = $movieGenresItem")
+
+        return movieGenresItem
+
+    }
+
+
+    fun getListOfPopularMovies(): MutableLiveData<List<MovieItem>> {
+        val popularList = makeApiCallGetListPopularMovies()
+        getListGenres()
+        return popularList.map { PopularMoviesList -> PopularMoviesList.results } as MutableLiveData<List<MovieItem>>
+    }
+}
+
+
+//TODO for config
+//private fun getConfigurationApiCall() : Configuration{
 //        Log.d(this.toString(), "log 2")
 //
 //        val configurationTheMovieDb = MutableLiveData<Configuration>()
@@ -96,13 +136,3 @@ class FilmsListRepository {
 //        return configurationTheMovieDb.map { Configuration ->  Configuration.images.baseUrl.toString()}
 //
 //    }
-
-
-    fun getListOfPopularMovies(): MutableLiveData<List<MovieItem>> {
-        val popularList = makeApiCallGetListPopularMovies()
-
-
-        return popularList.map { PopularMoviesList ->  PopularMoviesList.results} as MutableLiveData<List<MovieItem>>
-
-    }
-}

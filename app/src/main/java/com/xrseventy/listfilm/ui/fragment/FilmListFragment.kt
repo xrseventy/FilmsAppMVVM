@@ -1,6 +1,6 @@
 package com.xrseventy.listfilm.ui.fragment
 
-import FilmListClickListene
+import FilmListClickListener
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
@@ -10,17 +10,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xrseventy.listfilm.R
 import com.xrseventy.listfilm.data.model.MovieItem
+import com.xrseventy.listfilm.ui.recyclerView.FilmsListAdapter
 
-
-
-class FilmsListFragment : Fragment(), FilmListClickListene {
+class FilmsListFragment : Fragment(), FilmListClickListener {
 
     private lateinit var viewModel: FilmListViewModel
     private lateinit var recyclerViewFilmList: RecyclerView
@@ -28,32 +26,27 @@ class FilmsListFragment : Fragment(), FilmListClickListene {
     companion object {
         fun newInstance() = FilmsListFragment()
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        viewModel = ViewModelProvider(this).get(FilmListViewModel::class.java)
-        viewModel.getRecyclerMovieListDataObserver().observe(this, Observer<List<MovieItem>> {
-            if (it != null) {
-                updateAdapter(it)
-            } else {
-                Log.d (this.toString(), "Error loading list")
-            }
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
-        })
-
-        //viewModel.getConfiguration()
+        initViewModel()
         return inflater.inflate(R.layout.film_list_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerViewFilmList = view.findViewById(R.id.recyclerViewFilmList)
+        checkOrientationForFilmList(view)
+
+    }
+
+    private fun checkOrientationForFilmList(view: View) {
         if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
             recyclerViewFilmList.layoutManager = GridLayoutManager(view.context, 2)
         } else {
@@ -62,19 +55,34 @@ class FilmsListFragment : Fragment(), FilmListClickListene {
         }
     }
 
+    private fun initViewModel() {
+        viewModel = ViewModelProvider(this).get(FilmListViewModel::class.java)
+        viewModel.getRecyclerMovieListDataObserver().observe(this, {
+            if (it != null) {
+                updateAdapter(it) //TODO logic go off
+            } else {
+                Log.d(this.toString(), "Error loading list")
+            }
+        })
+    }
+
     private fun updateAdapter(movieList: List<MovieItem>) {
         recyclerViewFilmList.adapter = FilmsListAdapter(movieList, this)
 
     }
+
     override fun onItemClick(movieItem: MovieItem) {
-        val toast = Toast.makeText(activity, "You are clicked on ${movieItem.title}", Toast.LENGTH_LONG)
+        val toast =
+            Toast.makeText(activity, "You are clicked on ${movieItem.title}", Toast.LENGTH_LONG)
         toast.setGravity(Gravity.TOP, 0, 170)
         toast.show()
     }
+}
+
 
 //TODO maybe will need for loading next pages
 
-    //    override fun onActivityCreated(savedInstanceState: Bundle?) {
+//    override fun onActivityCreated(savedInstanceState: Bundle?) {
 //        super.onActivityCreated(savedInstanceState)
 //        //setScrollListenerOnFilmList()
 //    }
@@ -108,5 +116,4 @@ class FilmsListFragment : Fragment(), FilmListClickListene {
 //
 //    }
 
-}
 
