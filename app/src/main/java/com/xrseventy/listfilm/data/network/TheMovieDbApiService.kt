@@ -1,4 +1,4 @@
-package com.xrseventy.listfilm.data.repository.remote_data_source
+package com.xrseventy.listfilm.data.network
 import com.my.listFilms.data.repository.remote_data_source.NetworkModule.API_KEY
 import com.xrseventy.listfilm.data.model.Configuration
 import com.xrseventy.listfilm.data.model.GenresList

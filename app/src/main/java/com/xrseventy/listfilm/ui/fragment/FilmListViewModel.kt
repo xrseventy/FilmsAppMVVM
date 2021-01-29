@@ -16,16 +16,12 @@ class FilmListViewModel() : ViewModel() {
     private val movieList: MutableLiveData<List<MovieItem>> =
         filmsListRepository.getListOfPopularMovies()
 
-    // private val configurationSet: MutableLiveData<List<String>> = filmsListRepository.getConfigurationOFilmList()
-    // private val genresList: LiveData<List<GenresItem>> = filmsListRepository.getListGenres()
-
     fun getRecyclerMovieListDataObserver(): LiveData<List<MovieItem>> {
         return movieList
     }
 
-
-
-
+    // private val configurationSet: MutableLiveData<List<String>> = filmsListRepository.getConfigurationOFilmList()
+    // private val genresList: LiveData<List<GenresItem>> = filmsListRepository.getListGenres()
 
 }
 

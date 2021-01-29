@@ -21,7 +21,7 @@ class FilmListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         inItemTitle.text = title
         inItemRating.rating = rating.toFloat() / 2 //TODO logic go off
         inItemReleaseDate.text = releaseDate
-        inItemVoteCount.text = voteCount.toString() + "reviews"
+        inItemVoteCount.text = voteCount.toString() + " reviews" //TODO plurals res
 
         Glide.with(itemView.context)
             .load(imageUri)

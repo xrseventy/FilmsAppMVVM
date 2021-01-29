@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -57,13 +58,13 @@ class FilmsListFragment : Fragment(), FilmListClickListener {
 
     private fun initViewModel() {
         viewModel = ViewModelProvider(this).get(FilmListViewModel::class.java)
-        viewModel.getRecyclerMovieListDataObserver().observe(this, {
+        viewModel.getRecyclerMovieListDataObserver().observe(this) {
             if (it != null) {
                 updateAdapter(it) //TODO logic go off
             } else {
                 Log.d(this.toString(), "Error loading list")
             }
-        })
+        }
     }
 
     private fun updateAdapter(movieList: List<MovieItem>) {
