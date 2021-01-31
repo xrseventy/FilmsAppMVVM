@@ -1,4 +1,4 @@
-package com.xrseventy.listfilm.data.repository
+package com.xrseventy.listfilm.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData

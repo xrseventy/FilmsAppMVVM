@@ -1,12 +1,9 @@
 package com.xrseventy.listfilm.ui.fragment
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.xrseventy.listfilm.data.model.Configuration
-import com.xrseventy.listfilm.data.model.GenresItem
-import com.xrseventy.listfilm.data.repository.FilmsListRepository
+import com.xrseventy.listfilm.repository.FilmsListRepository
 import com.xrseventy.listfilm.data.model.MovieItem
 
 

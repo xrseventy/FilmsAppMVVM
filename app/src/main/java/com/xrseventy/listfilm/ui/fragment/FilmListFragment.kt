@@ -17,11 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xrseventy.listfilm.R
 import com.xrseventy.listfilm.data.model.MovieItem
-import com.xrseventy.listfilm.ui.recyclerView.FilmsListAdapter
+import com.xrseventy.listfilm.ui.recyclerView.FilmListAdapter
 
 class FilmsListFragment : Fragment(), FilmListClickListener {
 
     private lateinit var viewModel: FilmListViewModel
+    private lateinit var viewModelFactory: FilmListViewModelFactory
     private lateinit var recyclerViewFilmList: RecyclerView
 
     companion object {
@@ -31,19 +32,20 @@ class FilmsListFragment : Fragment(), FilmListClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
+        initViewModel()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-
-        initViewModel()
         return inflater.inflate(R.layout.film_list_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerViewFilmList = view.findViewById(R.id.recyclerViewFilmList)
+        initAdapter()
         checkOrientationForFilmList(view)
+        loadListFilm()
 
     }
 
@@ -55,9 +57,11 @@ class FilmsListFragment : Fragment(), FilmListClickListener {
                 LinearLayoutManager(view.context, RecyclerView.HORIZONTAL, false)
         }
     }
-
     private fun initViewModel() {
         viewModel = ViewModelProvider(this).get(FilmListViewModel::class.java)
+    }
+
+    private fun loadListFilm(){
         viewModel.getRecyclerMovieListDataObserver().observe(this) {
             if (it != null) {
                 updateAdapter(it) //TODO logic go off
@@ -67,8 +71,14 @@ class FilmsListFragment : Fragment(), FilmListClickListener {
         }
     }
 
+    private fun initAdapter(){
+        val list: List<MovieItem> = emptyList()
+        updateAdapter(list)
+
+    }
+
     private fun updateAdapter(movieList: List<MovieItem>) {
-        recyclerViewFilmList.adapter = FilmsListAdapter(movieList, this)
+        recyclerViewFilmList.adapter = FilmListAdapter(movieList, this)
 
     }
 

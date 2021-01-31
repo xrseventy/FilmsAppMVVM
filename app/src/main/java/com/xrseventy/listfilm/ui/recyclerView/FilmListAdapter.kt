@@ -10,7 +10,7 @@ import com.xrseventy.listfilm.data.model.MovieItem
 
 
 
-class FilmsListAdapter(
+class FilmListAdapter(
     private val filmsList: List<MovieItem>,
     private val filmListClickListener: FilmListClickListener
 ) :
@@ -30,27 +30,18 @@ class FilmsListAdapter(
 
     override fun onBindViewHolder(holder: FilmListViewHolder, position: Int) {
         val currentPosition = filmsList[position]
-        val savedFilmListTitle = currentPosition.title
-        val savedFilmListRating = currentPosition.voteAverage
         val savedFilmPosterPath = currentPosition.posterPath
         val posterPath = POSTER_BASE_URL + savedFilmPosterPath
-        val releaseDate = currentPosition.releaseDate
-        val savedFilmListVoteCount = currentPosition.voteCount
+
         Log.d(this.toString(), "posterPath $posterPath")
+        holder.bind(posterPath, filmListClickListener, currentPosition)
+        bindView(holder, currentPosition)
+    }
 
-
-        holder.bind(
-            savedFilmListTitle,
-            savedFilmListRating,
-            posterPath,
-            releaseDate,
-            savedFilmListVoteCount
-        )
-
-        holder.itemView.setOnClickListener {
-            Log.d(this.toString(), "Listener work ${currentPosition.title}")
-            filmListClickListener.onItemClick(currentPosition)
-        }
-
+    private fun bindView(viewHolder: FilmListViewHolder, currentPosition: MovieItem ){
+        viewHolder.inItemTitle.text = currentPosition.title
+        viewHolder.inItemRating.rating = currentPosition.voteAverage.toFloat() / 2 //TODO logic go off
+        viewHolder.inItemReleaseDate.text = currentPosition.releaseDate
+        viewHolder.inItemVoteCount.text = currentPosition.voteCount.toString() + " reviews" //TODO plurals res
     }
 }
