@@ -14,7 +14,9 @@ import com.xrseventy.listfilm.ui.FilmListFragmentScreenState
 class FilmListViewModel : ViewModel() {
 
     private val filmsListRepository: FilmsListRepository = FilmsListRepository()
-    private var movieList: MutableLiveData<List<MovieItem>> = MutableLiveData()
+    private var _movieList: MutableLiveData<List<MovieItem>> = MutableLiveData()
+   var movieList: LiveData<List<MovieItem>> = _movieList
+
 
     private var screenState: FilmListFragmentScreenState = FilmListFragmentScreenState(
             showProgressBar = false,
@@ -26,17 +28,17 @@ class FilmListViewModel : ViewModel() {
 //        movieList = filmsListRepository.getListOfPopularMovies()
 //    }
 
-    fun getRecyclerMovieListDataObserver(): LiveData<List<MovieItem>> {
-        return movieList
-    }
+//    fun getRecyclerMovieListDataObserver(): LiveData<List<MovieItem>> {
+//        return _movieList
+//    }
 
     fun loadMovieList() {
         updateScreenState(showProgressBar = true)
          // movieList = filmsListRepository.getListOfPopularMovies()
 
         filmsListRepository.fetchMovieListFromResponseTask(object : LoadFilmListCallBack {
-            override fun onSuccess(listMovieItem: MutableLiveData<List<MovieItem>>) {
-                movieList = listMovieItem
+            override fun onSuccess(listMovieItem:List<MovieItem>) {
+                _movieList.value = listMovieItem
             }
 
             override fun onError() {

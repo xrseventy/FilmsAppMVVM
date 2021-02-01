@@ -1,5 +1,6 @@
 package com.xrseventy.listfilm.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
@@ -16,9 +17,9 @@ import java.util.*
 
 class FilmsListRepository {
 
-    //private fun makeApiCallGetListPopularMovies(): LiveData<PopularMoviesList> {
-        private fun makeApiCallGetListPopularMovies(callback: LoadFilmListCallBack){
-        val popularMovieList = MutableLiveData<PopularMoviesList>()
+    private fun makeApiCallGetListPopularMovies(callback: LoadFilmListCallBack) {
+
+        var popularMovieList: PopularMoviesList
         val popularMovieCall: Call<PopularMoviesList> = theMovieDbApiService.getMoviePopular(
                 NetworkModule.API_KEY,
                 (Locale.getDefault().language.toString())
@@ -26,7 +27,6 @@ class FilmsListRepository {
         popularMovieCall.enqueue(object : Callback<PopularMoviesList> {
 
             override fun onFailure(call: Call<PopularMoviesList>, t: Throwable) {
-                popularMovieList.postValue(null)
                 callback.onError()
             }
 
@@ -34,39 +34,30 @@ class FilmsListRepository {
                     call: Call<PopularMoviesList>,
                     response: Response<PopularMoviesList>
             ) {
-
-                val url = response.raw().request().url()
-
                 if (response.isSuccessful) {
-                    popularMovieList.value = response.body()
-                    callback.onSuccess(mapLoadedPopularFilmsList(popularMovieList))
+                    popularMovieList = response.body()!!
+                    callback.onSuccess(popularMovieList.results)
                 } else {
                     callback.onError()
                 }
             }
         })
-        //return popularMovieList
     }
 
-        fun fetchMovieListFromResponseTask(callBack: LoadFilmListCallBack) {
+    fun fetchMovieListFromResponseTask(callBack: LoadFilmListCallBack) {
 
-            makeApiCallGetListPopularMovies(object : LoadFilmListCallBack {
+        makeApiCallGetListPopularMovies(object : LoadFilmListCallBack {
 
-                override fun onSuccess(listMovieItem: MutableLiveData<List<MovieItem>>) {
-                    callBack.onSuccess(listMovieItem)
-                }
+            override fun onSuccess(listMovieItem: List<MovieItem>) {
+                callBack.onSuccess(listMovieItem)
+            }
 
-                override fun onError() {
-                    callBack.onError()
-                }
-
-            })
-        }
-
-        fun mapLoadedPopularFilmsList(popularList: LiveData<PopularMoviesList>) : MutableLiveData<List<MovieItem>>{
-        return popularList.map { PopularMoviesList -> PopularMoviesList.results } as MutableLiveData<List<MovieItem>>
-
+            override fun onError() {
+                callBack.onError()
+            }
+        })
     }
+
 
 //TODO work without callbacks
 

@@ -72,9 +72,8 @@ class FilmListFragment : Fragment(), FilmListClickListener {
     }
 
     private fun loadListFilm(){
-        viewModel.loadMovieList()
-        Log.d(this.toString(), "log ${viewModel.getRecyclerMovieListDataObserver()}")
-        viewModel.getRecyclerMovieListDataObserver().observe(this) {
+        viewModel.loadMovieList() //add новую переменную во вью модели
+        viewModel.movieList.observe(this) {
             if (it != null) {
                 updateAdapter(it) //TODO logic go off
             } else {
