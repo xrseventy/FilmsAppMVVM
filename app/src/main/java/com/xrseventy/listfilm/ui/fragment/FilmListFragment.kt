@@ -8,6 +8,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -17,16 +18,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xrseventy.listfilm.R
 import com.xrseventy.listfilm.data.model.MovieItem
+import com.xrseventy.listfilm.ui.FilmListFragmentScreenState
 import com.xrseventy.listfilm.ui.recyclerView.FilmListAdapter
 
-class FilmsListFragment : Fragment(), FilmListClickListener {
+class FilmListFragment : Fragment(), FilmListClickListener {
 
     private lateinit var viewModel: FilmListViewModel
     private lateinit var viewModelFactory: FilmListViewModelFactory
     private lateinit var recyclerViewFilmList: RecyclerView
 
     companion object {
-        fun newInstance() = FilmsListFragment()
+        fun newInstance() = FilmListFragment()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +36,7 @@ class FilmsListFragment : Fragment(), FilmListClickListener {
         retainInstance = true
         initViewModel()
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -43,11 +46,18 @@ class FilmsListFragment : Fragment(), FilmListClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerViewFilmList = view.findViewById(R.id.recyclerViewFilmList)
+        showProgressBar(true)
         initAdapter()
         checkOrientationForFilmList(view)
         loadListFilm()
+        showProgressBar(false)
 
     }
+
+//    override fun renderView(model: FilmListFragmentScreenState) {
+//        TODO("Not yet implemented")
+//    }
+
 
     private fun checkOrientationForFilmList(view: View) {
         if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -62,6 +72,8 @@ class FilmsListFragment : Fragment(), FilmListClickListener {
     }
 
     private fun loadListFilm(){
+        viewModel.loadMovieList()
+        Log.d(this.toString(), "log ${viewModel.getRecyclerMovieListDataObserver()}")
         viewModel.getRecyclerMovieListDataObserver().observe(this) {
             if (it != null) {
                 updateAdapter(it) //TODO logic go off
@@ -88,43 +100,45 @@ class FilmsListFragment : Fragment(), FilmListClickListener {
         toast.setGravity(Gravity.TOP, 0, 170)
         toast.show()
     }
-}
+
 
 
 //TODO maybe will need for loading next pages
 
-//    override fun onActivityCreated(savedInstanceState: Bundle?) {
-//        super.onActivityCreated(savedInstanceState)
-//        //setScrollListenerOnFilmList()
-//    }
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        setScrollListenerOnFilmList()
+    }
 
-//    private fun setScrollListenerOnFilmList(){
-//        recyclerViewFilmList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//
-//            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-//                super.onScrollStateChanged(recyclerView, newState)
-//                if (!recyclerView.canScrollVertically(1)) {
-//                    val toast = Toast.makeText(activity, "LAST", Toast.LENGTH_LONG)
-//                    toast.setGravity(Gravity.TOP, 0, 170)
-//                    toast.show()
-//
-//                    showProgressBar(true)
-//                } else
-//                    showProgressBar(false)
-//
-//            }
-//        })
-//    }
+    private fun setScrollListenerOnFilmList(){
+        recyclerViewFilmList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
-//    private fun showProgressBar(switcher: Boolean){
-//        val progressBar: ProgressBar = view!!.findViewById(R.id.progressBar)
-//
-//        if (switcher) {
-//            progressBar.visibility = View.VISIBLE
-//        } else {
-//            progressBar.visibility = View.GONE
-//        }
-//
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1)) {
+                    val toast = Toast.makeText(activity, "LAST", Toast.LENGTH_LONG)
+                    toast.setGravity(Gravity.TOP, 0, 170)
+                    toast.show()
+
+                    showProgressBar(true)
+                } else
+                    showProgressBar(false)
+
+            }
+        })
+    }
+
+    private fun showProgressBar(switcher: Boolean) {
+        val progressBar: ProgressBar = view!!.findViewById(R.id.progressBar)
+
+        if (switcher) {
+            progressBar.visibility = View.VISIBLE
+        } else {
+            progressBar.visibility = View.GONE
+        }
+    }
+}
+
 //    }
 
 

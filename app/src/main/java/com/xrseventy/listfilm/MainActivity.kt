@@ -2,7 +2,7 @@ package com.xrseventy.listfilm
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.xrseventy.listfilm.ui.fragment.FilmsListFragment
+import com.xrseventy.listfilm.ui.fragment.FilmListFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, FilmsListFragment.newInstance())
+                    .replace(R.id.container, FilmListFragment.newInstance())
                     .commitNow()
         }
     }
