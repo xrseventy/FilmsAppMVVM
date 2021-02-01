@@ -16,7 +16,6 @@ class FilmListViewModel : ViewModel() {
     private val filmsListRepository: FilmsListRepository = FilmsListRepository()
     private var movieList: MutableLiveData<List<MovieItem>> = MutableLiveData()
 
-
     private var screenState: FilmListFragmentScreenState = FilmListFragmentScreenState(
             showProgressBar = false,
             showErrorMessage = false,
