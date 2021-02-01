@@ -1,4 +1,4 @@
-package com.xrseventy.listfilm.ui
+package com.xrseventy.listfilm.presentation
 
 class FilmListFragmentScreenState (
         val showProgressBar: Boolean,

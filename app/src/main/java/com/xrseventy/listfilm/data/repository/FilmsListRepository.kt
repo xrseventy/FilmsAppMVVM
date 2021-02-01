@@ -1,12 +1,8 @@
-package com.xrseventy.listfilm.repository
+package com.xrseventy.listfilm.data.repository
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.map
 import com.my.listFilms.data.repository.remote_data_source.NetworkModule
 import com.my.listFilms.data.repository.remote_data_source.NetworkModule.theMovieDbApiService
-import com.xrseventy.listfilm.data.LoadFilmListCallBack
+import com.xrseventy.listfilm.data.network.LoadFilmListCallBack
 import com.xrseventy.listfilm.data.model.MovieItem
 import com.xrseventy.listfilm.data.model.PopularMoviesList
 import retrofit2.Call
@@ -20,10 +16,7 @@ class FilmsListRepository {
     private fun makeApiCallGetListPopularMovies(callback: LoadFilmListCallBack) {
 
         var popularMovieList: PopularMoviesList
-        val popularMovieCall: Call<PopularMoviesList> = theMovieDbApiService.getMoviePopular(
-                NetworkModule.API_KEY,
-                (Locale.getDefault().language.toString())
-        )
+        val popularMovieCall: Call<PopularMoviesList> = theMovieDbApiService.getMoviePopular()
         popularMovieCall.enqueue(object : Callback<PopularMoviesList> {
 
             override fun onFailure(call: Call<PopularMoviesList>, t: Throwable) {

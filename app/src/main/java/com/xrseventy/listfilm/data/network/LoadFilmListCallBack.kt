@@ -1,4 +1,4 @@
-package com.xrseventy.listfilm.data
+package com.xrseventy.listfilm.data.network
 
 import androidx.lifecycle.MutableLiveData
 import com.xrseventy.listfilm.data.model.MovieItem

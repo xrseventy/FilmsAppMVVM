@@ -1,10 +1,6 @@
 package com.xrseventy.listfilm.domain
 
-import androidx.lifecycle.LiveData
-import com.xrseventy.listfilm.data.LoadFilmListCallBack
-import com.xrseventy.listfilm.data.model.MovieItem
-import com.xrseventy.listfilm.data.model.PopularMoviesList
-import com.xrseventy.listfilm.repository.FilmsListRepository
+import com.xrseventy.listfilm.data.repository.FilmsListRepository
 
 //Class Interactor united methods for for global task. Interactor = UseCase feature facade.
 // Interactor, который включает в себя UseCases.

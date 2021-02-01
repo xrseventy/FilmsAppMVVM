@@ -1,4 +1,4 @@
-package com.xrseventy.listfilm.ui.recyclerView
+package com.xrseventy.listfilm.presentation.filmListRecyclerView
 import FilmListClickListener
 import android.util.Log
 import android.view.LayoutInflater

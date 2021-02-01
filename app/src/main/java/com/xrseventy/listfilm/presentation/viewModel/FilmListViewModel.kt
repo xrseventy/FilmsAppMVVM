@@ -1,12 +1,12 @@
-package com.xrseventy.listfilm.ui.fragment
+package com.xrseventy.listfilm.presentation.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.xrseventy.listfilm.data.LoadFilmListCallBack
-import com.xrseventy.listfilm.repository.FilmsListRepository
+import com.xrseventy.listfilm.data.network.LoadFilmListCallBack
+import com.xrseventy.listfilm.data.repository.FilmsListRepository
 import com.xrseventy.listfilm.data.model.MovieItem
-import com.xrseventy.listfilm.ui.FilmListFragmentScreenState
+import com.xrseventy.listfilm.presentation.FilmListFragmentScreenState
 
 //ViewModel не должны ничего знать о фрагментах
 //MVVM, we don’t use interfaces for communicating to View and ViewModel

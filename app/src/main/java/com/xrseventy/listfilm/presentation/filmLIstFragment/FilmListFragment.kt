@@ -1,4 +1,4 @@
-package com.xrseventy.listfilm.ui.fragment
+package com.xrseventy.listfilm.presentation.filmLIstFragment
 
 import FilmListClickListener
 import android.content.res.Configuration
@@ -18,8 +18,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xrseventy.listfilm.R
 import com.xrseventy.listfilm.data.model.MovieItem
-import com.xrseventy.listfilm.ui.FilmListFragmentScreenState
-import com.xrseventy.listfilm.ui.recyclerView.FilmListAdapter
+import com.xrseventy.listfilm.presentation.filmListRecyclerView.FilmListAdapter
+import com.xrseventy.listfilm.presentation.viewModel.FilmListViewModel
+import com.xrseventy.listfilm.presentation.viewModel.FilmListViewModelFactory
 
 class FilmListFragment : Fragment(), FilmListClickListener {
 
@@ -36,7 +37,6 @@ class FilmListFragment : Fragment(), FilmListClickListener {
         retainInstance = true
         initViewModel()
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
