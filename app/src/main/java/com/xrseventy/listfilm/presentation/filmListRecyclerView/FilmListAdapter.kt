@@ -4,7 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.my.listFilms.data.repository.remote_data_source.NetworkModule.POSTER_BASE_URL
+
 import com.xrseventy.listfilm.R
 import com.xrseventy.listfilm.data.model.MovieItem
 
@@ -16,6 +16,7 @@ class FilmListAdapter(
 ) :
     RecyclerView.Adapter<FilmListViewHolder>() {
 
+    val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500"
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmListViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(
             R.layout.film_card_in_list,

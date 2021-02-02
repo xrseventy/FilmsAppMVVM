@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">List Film</string>
     <string name="reviews">reviews</string>
-    <string name="API_KEY">"923bb540f8268da1eb90ceff700bfe02"</string>
+    <string name="api_key">923bb540f8268da1eb90ceff700bfe02</string>
+    <string name="api_key_header">api_key</string>
+    <string name="base_url">https://api.themoviedb.org/3/</string>
+    <string name="language_header">language</string>
+
 
 </resources>

@@ -1,6 +1,7 @@
 package com.xrseventy.listfilm.presentation.filmLIstFragment
 
 import FilmListClickListener
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
@@ -11,25 +12,29 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.xrseventy.listfilm.App
 import com.xrseventy.listfilm.R
 import com.xrseventy.listfilm.data.model.MovieItem
 import com.xrseventy.listfilm.presentation.filmListRecyclerView.FilmListAdapter
 import com.xrseventy.listfilm.presentation.viewModel.FilmListViewModel
-import com.xrseventy.listfilm.presentation.viewModel.FilmListViewModelFactory
 
 class FilmListFragment : Fragment(), FilmListClickListener {
 
     private lateinit var viewModel: FilmListViewModel
-    private lateinit var viewModelFactory: FilmListViewModelFactory
     private lateinit var recyclerViewFilmList: RecyclerView
+    private lateinit var app: App
+
 
     companion object {
         fun newInstance() = FilmListFragment()
+    }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        app = requireContext().applicationContext as App
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +57,7 @@ class FilmListFragment : Fragment(), FilmListClickListener {
         loadListFilm()
         showProgressBar(false)
 
+
     }
 
 //    override fun renderView(model: FilmListFragmentScreenState) {
@@ -68,7 +74,9 @@ class FilmListFragment : Fragment(), FilmListClickListener {
         }
     }
     private fun initViewModel() {
-        viewModel = ViewModelProvider(this).get(FilmListViewModel::class.java)
+        //viewModel = ViewModelProvider(this).get(FilmListViewModel::class.java)
+        viewModel = app.appContainer.getFilmListViewModel(this)
+
     }
 
     private fun loadListFilm(){

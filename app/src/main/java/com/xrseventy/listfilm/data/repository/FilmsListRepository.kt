@@ -1,22 +1,20 @@
 package com.xrseventy.listfilm.data.repository
 
 import com.my.listFilms.data.repository.remote_data_source.NetworkModule
-import com.my.listFilms.data.repository.remote_data_source.NetworkModule.theMovieDbApiService
 import com.xrseventy.listfilm.data.network.LoadFilmListCallBack
 import com.xrseventy.listfilm.data.model.MovieItem
 import com.xrseventy.listfilm.data.model.PopularMoviesList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
+class FilmsListRepository(private val networkModule: NetworkModule) {
 
-class FilmsListRepository {
-
-    private fun makeApiCallGetListPopularMovies(callback: LoadFilmListCallBack) {
+    fun makeApiCallGetListPopularMovies(callback: LoadFilmListCallBack) {
 
         var popularMovieList: PopularMoviesList
-        val popularMovieCall: Call<PopularMoviesList> = theMovieDbApiService.getMoviePopular()
+        val popularMovieCall: Call<PopularMoviesList> = networkModule.theMovieDbApiService.getMoviePopular()
+
         popularMovieCall.enqueue(object : Callback<PopularMoviesList> {
 
             override fun onFailure(call: Call<PopularMoviesList>, t: Throwable) {
@@ -62,8 +60,8 @@ class FilmsListRepository {
 
 }
 
-//private fun getGenreApiCall(): LiveData<GenresList> {
-//    val movieGenres = MutableLiveData<GenresList>()
+//private fun getGenreApiCall(callback: LoadGenresCallBack): GenresList {
+//    val movieGenres = GenresList()
 //    val movieGenre: Call<GenresList> = theMovieDbApiService.getGenre(
 //            NetworkModule.API_KEY,
 //            (Locale.getDefault().language.toString())
@@ -87,7 +85,7 @@ class FilmsListRepository {
 //        }
 //    })
 //    //https://api.themoviedb.org/3/genre/movie/list?api_key=923bb540f8268da1eb90ceff700bfe02&language=en-US
-//    return movieGenres
+//
 //}
 
 
