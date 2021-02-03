@@ -1,4 +1,4 @@
-package com.xrseventy.listfilm.presentation.filmLIstFragment
+package com.xrseventy.listfilm.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
 

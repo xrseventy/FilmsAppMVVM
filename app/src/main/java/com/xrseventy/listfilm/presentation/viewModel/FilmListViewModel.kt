@@ -26,14 +26,6 @@ class FilmListViewModel(private val filmsListRepository: FilmsListRepository) : 
             itemClicked = false)
 
 
-//    fun loadMovieList() {
-//        movieList = filmsListRepository.getListOfPopularMovies()
-//    }
-
-//    fun getRecyclerMovieListDataObserver(): LiveData<List<MovieItem>> {
-//        return _movieList
-//    }
-
     fun loadMovieList() {
         updateScreenState(showProgressBar = true)
          // movieList = filmsListRepository.getListOfPopularMovies()
