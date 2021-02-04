@@ -15,25 +15,25 @@ import com.xrseventy.listfilm.presentation.FilmListFragmentScreenState
 
 class FilmListViewModel(private val filmsListRepository: FilmsListRepository) : ViewModel() {
 
-   // private val filmsListRepository: FilmsListRepository = FilmsListRepository()
     private var _movieList: MutableLiveData<List<MovieItem>> = MutableLiveData()
-   var movieList: LiveData<List<MovieItem>> = _movieList
+    var movieList: LiveData<List<MovieItem>> = _movieList
 
 
     private var screenState: FilmListFragmentScreenState = FilmListFragmentScreenState(
-            showProgressBar = false,
-            showErrorMessage = false,
-            itemClicked = false)
+        showProgressBar = false,
+        showErrorMessage = false,
+        itemClicked = false
+    )
 
 
     fun loadMovieList() {
         updateScreenState(showProgressBar = true)
-         // movieList = filmsListRepository.getListOfPopularMovies()
+        // movieList = filmsListRepository.getListOfPopularMovies()
 
 
         filmsListRepository.fetchMovieListFromResponseTask(object : LoadFilmListCallBack {
-       //filmsListRepository.fetchMovieListFromResponseTask(object : LoadFilmListCallBack {
-            override fun onSuccess(listMovieItem:List<MovieItem>) {
+            //filmsListRepository.fetchMovieListFromResponseTask(object : LoadFilmListCallBack {
+            override fun onSuccess(listMovieItem: List<MovieItem>) {
                 _movieList.value = listMovieItem
             }
 
@@ -46,19 +46,16 @@ class FilmListViewModel(private val filmsListRepository: FilmsListRepository) : 
 
 
     private fun updateScreenState(
-            showProgressBar: Boolean = screenState.showProgressBar,
-            showErrorMessage: Boolean = screenState.showErrorMessage,
-            itemClicked: Boolean = screenState.itemClicked
+        showProgressBar: Boolean = screenState.showProgressBar,
+        showErrorMessage: Boolean = screenState.showErrorMessage,
+        itemClicked: Boolean = screenState.itemClicked
     ) {
         screenState = FilmListFragmentScreenState(
-                showProgressBar,
-                showErrorMessage,
-                itemClicked
+            showProgressBar,
+            showErrorMessage,
+            itemClicked
         )
     }
-
-    // private val configurationSet: MutableLiveData<List<String>> = filmsListRepository.getConfigurationOFilmList()
-    // private val genresList: LiveData<List<GenresItem>> = filmsListRepository.getListGenres()
 
 }
 

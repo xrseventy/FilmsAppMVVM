@@ -1,4 +1,4 @@
-package com.my.listFilms.data.repository.remote_data_source
+package com.xrseventy.listfilm.data.network
 
 import android.content.res.Resources
 

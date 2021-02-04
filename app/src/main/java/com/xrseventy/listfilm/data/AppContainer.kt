@@ -2,12 +2,14 @@ package com.xrseventy.listfilm.data
 
 import android.content.res.Resources
 import androidx.lifecycle.ViewModelProvider
-import com.my.listFilms.data.repository.remote_data_source.NetworkModule
+import com.xrseventy.listfilm.data.network.NetworkModule
 
 import com.xrseventy.listfilm.data.repository.FilmsListRepository
+import com.xrseventy.listfilm.presentation.filmLIstFragment.DetailedFilmFragment
 import com.xrseventy.listfilm.presentation.filmLIstFragment.FilmListFragment
+import com.xrseventy.listfilm.presentation.viewModel.DetailedFilmViewModel
 import com.xrseventy.listfilm.presentation.viewModel.FilmListViewModel
-import com.xrseventy.listfilm.presentation.viewModel.FilmListViewModelFactory
+import com.xrseventy.listfilm.presentation.viewModel.MoviesViewModelFactory
 
 class AppContainer(resources: Resources) {
 
@@ -21,8 +23,15 @@ class AppContainer(resources: Resources) {
     fun getFilmListViewModel(fragment: FilmListFragment): FilmListViewModel {
         return ViewModelProvider(
                 fragment,
-                FilmListViewModelFactory(filmListRepository)
+                MoviesViewModelFactory(filmListRepository)
         ).get(FilmListViewModel::class.java)
+    }
+
+    fun getFilmListViewModel(fragment: DetailedFilmFragment): DetailedFilmViewModel {
+        return ViewModelProvider(
+            fragment,
+            MoviesViewModelFactory(filmListRepository)
+        ).get(DetailedFilmViewModel::class.java)
     }
 
 

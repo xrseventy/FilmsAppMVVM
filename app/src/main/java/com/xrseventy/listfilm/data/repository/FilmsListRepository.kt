@@ -1,9 +1,12 @@
 package com.xrseventy.listfilm.data.repository
 
-import com.my.listFilms.data.repository.remote_data_source.NetworkModule
+import android.util.Log
+import com.xrseventy.listfilm.data.model.DetailedMovie
+import com.xrseventy.listfilm.data.network.NetworkModule
 import com.xrseventy.listfilm.data.network.LoadFilmListCallBack
 import com.xrseventy.listfilm.data.model.MovieItem
 import com.xrseventy.listfilm.data.model.PopularMoviesList
+import com.xrseventy.listfilm.data.network.LoadDetailedMovieCallback
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,6 +51,47 @@ class FilmsListRepository(private val networkModule: NetworkModule) {
             }
         })
     }
+
+
+
+        fun makeApiCallGetDetailedMovie(callback: LoadDetailedMovieCallback, movieId: Int) {
+
+            var detailedMovie: DetailedMovie
+            val detailedMovieCall: Call<DetailedMovie> = networkModule.theMovieDbApiService.getDetailedMovie(movieId)
+
+            detailedMovieCall.enqueue(object : Callback<DetailedMovie> {
+
+                override fun onFailure(call: Call<DetailedMovie>, t: Throwable) {
+                    callback.onError()
+                }
+
+                override fun onResponse(
+                    call: Call<DetailedMovie>,
+                    response: Response<DetailedMovie>
+                ) {
+                    if (response.isSuccessful) {
+                        detailedMovie = response.body()!!
+                        callback.onSuccess(detailedMovie)
+                    } else {
+                        callback.onError()
+                    }
+                }
+            })
+        }
+
+        fun fetchDetailedMovieFromResponseTask(movieID : Int, callBack: LoadDetailedMovieCallback) {
+
+            makeApiCallGetDetailedMovie(object : LoadDetailedMovieCallback {
+
+                override fun onSuccess(listMovieItem: DetailedMovie) {
+                    callBack.onSuccess(listMovieItem)
+                }
+
+                override fun onError() {
+                    callBack.onError()
+                }
+            }, movieID)
+        }
 
 
 //TODO work without callbacks
