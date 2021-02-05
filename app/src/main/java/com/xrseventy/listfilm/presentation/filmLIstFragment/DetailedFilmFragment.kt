@@ -63,7 +63,7 @@ class DetailedFilmFragment : Fragment() {
         textViewOverviewMovie = view.findViewById(R.id.textViewDetailedFilmOverview)
         initViewModel()
         setClickListenerOnBackButton()
-        setDetailedMovie()
+        //setDetailedMovie()
         Log.d(this.toString(), "log ID $movieID")
 
 
