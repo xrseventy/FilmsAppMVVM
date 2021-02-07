@@ -1,6 +1,5 @@
-package com.xrseventy.listfilm.presentation.viewModel
+package com.xrseventy.listfilm.presentation.viewModels
 
-import android.content.res.Resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

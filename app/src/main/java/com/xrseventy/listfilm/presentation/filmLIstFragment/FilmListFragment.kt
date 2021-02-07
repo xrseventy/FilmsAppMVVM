@@ -9,7 +9,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.os.bundleOf
@@ -17,8 +16,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,7 +24,7 @@ import com.xrseventy.listfilm.App
 import com.xrseventy.listfilm.R
 import com.xrseventy.listfilm.data.model.MovieItem
 import com.xrseventy.listfilm.presentation.filmListRecyclerView.FilmListAdapter
-import com.xrseventy.listfilm.presentation.viewModel.FilmListViewModel
+import com.xrseventy.listfilm.presentation.viewModels.FilmListViewModel
 
 class FilmListFragment : Fragment(), FilmListClickListener {
 
@@ -42,14 +39,15 @@ class FilmListFragment : Fragment(), FilmListClickListener {
     }
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        app = requireContext().applicationContext as App
-    }
+ app = requireContext().applicationContext as App
+}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        retainInstance = true
+        //retainInstance = true
         initViewModel()
-
+       // app = requireContext().applicationContext as App -> AppContiner
+    //    app = requireContext().applicationContext as App
     }
 
     override fun onCreateView(
@@ -99,11 +97,7 @@ class FilmListFragment : Fragment(), FilmListClickListener {
     private fun loadListFilm(){
         viewModel.loadMovieList()
         viewModel.movieList.observe(viewLifecycleOwner) {
-            if (it != null) {
-                updateAdapter(it) //TODO logic go off
-            } else {
-                Log.d(this.toString(), "Error loading list")
-            }
+            updateAdapter(it)
         }
     }
 
@@ -136,7 +130,6 @@ class FilmListFragment : Fragment(), FilmListClickListener {
 //            findNavController().navigate(R.id.action_filmListFragment_to_detailedFilmFragment, bundle)
 //        }
         if (navController.currentDestination?.id == R.id.filmListFragment) {
-
             navController.navigate(R.id.action_filmListFragment_to_detailedFilmFragment, bundle)
         }
 

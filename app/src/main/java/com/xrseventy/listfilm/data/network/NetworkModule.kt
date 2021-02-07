@@ -1,6 +1,7 @@
 package com.xrseventy.listfilm.data.network
 
 import android.content.res.Resources
+import com.xrseventy.listfilm.BuildConfig
 
 import com.xrseventy.listfilm.R
 import com.xrseventy.listfilm.data.network.TheMovieDbApiService
@@ -12,6 +13,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import java.util.*
+import okhttp3.logging.HttpLoggingInterceptor
 
 class NetworkModule(resources: Resources) {
 
@@ -22,36 +24,55 @@ class NetworkModule(resources: Resources) {
     private var getSystemLanguage = (Locale.getDefault().language.toString())
 
 
+//    private val loggingInterceptor = HttpLoggingInterceptor { chain ->
+//        HttpLoggingInterceptor().level =
+//            if (BuildConfig.DEBUG) {
+//                HttpLoggingInterceptor.Level.BODY
+//            } else {
+//                HttpLoggingInterceptor.Level.NONE
+//            }
+//        return@HttpLoggingInterceptor
+//    }
+
+    private val loggingInterceptor = run {
+        val httpLoggingInterceptor = HttpLoggingInterceptor()
+        httpLoggingInterceptor.apply {
+            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        }
+    }
+
     private val requestInterceptor = Interceptor { chain ->
 
         val url: HttpUrl = chain.request()
-                .url()
-                .newBuilder()
-                .addQueryParameter(apiKeyHeader, apiKey)
-                .addQueryParameter(languageHeader, getSystemLanguage)
-                .build()
+            .url()
+            .newBuilder()
+            .addQueryParameter(apiKeyHeader, apiKey)
+            .addQueryParameter(languageHeader, getSystemLanguage)
+            .build()
 
         val request: Request = chain.request()
-                .newBuilder()
-                .url(url)
-                .build()
+            .newBuilder()
+            .url(url)
+            .build()
 
         return@Interceptor chain.proceed(request)
 
     }
 
     val okHttpClient: OkHttpClient = OkHttpClient.Builder()
-            .addInterceptor(requestInterceptor)
-            .build()
+        .addInterceptor(loggingInterceptor)
+        .addInterceptor(requestInterceptor)
+        .build()
 
     private val retrofit = Retrofit.Builder()
-            .client(okHttpClient)
-            .baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        .client(okHttpClient)
+        .baseUrl(baseUrl)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
 
     val theMovieDbApiService: TheMovieDbApiService = retrofit.create()
 
+    //val ApiServiceForDetailedMovie: TheMovieDbApiService =
 
 }
 

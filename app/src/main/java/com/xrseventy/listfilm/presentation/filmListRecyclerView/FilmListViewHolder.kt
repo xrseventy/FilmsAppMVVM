@@ -17,7 +17,7 @@ class FilmListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val inItemReleaseDate: TextView = itemView.findViewById(R.id.inItemReleaseDate)
     val inItemVoteCount: TextView = itemView.findViewById(R.id.inItemVoteCount)
     val inItemRating: RatingBar = itemView.findViewById(R.id.ratingBar)
-    val imageViewItem: ImageView = itemView.findViewById(R.id.imageViewItem)
+    private val imageViewItem: ImageView = itemView.findViewById(R.id.imageViewItem)
 
     fun bind(posterPath: String, filmListClickListener: FilmListClickListener, currentItemPosition: MovieItem) {
 

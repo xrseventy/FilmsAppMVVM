@@ -36,6 +36,7 @@ class FilmListAdapter(
 
         Log.d(this.toString(), "posterPath $posterPath")
         holder.bind(posterPath, filmListClickListener, currentPosition)
+       // holder.bind(posterPath, filmListClickListener, currentPosition)
         bindView(holder, currentPosition)
     }
 

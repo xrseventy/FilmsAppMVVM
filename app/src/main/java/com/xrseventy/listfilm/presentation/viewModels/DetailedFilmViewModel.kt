@@ -1,4 +1,4 @@
-package com.xrseventy.listfilm.presentation.viewModel
+package com.xrseventy.listfilm.presentation.viewModels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

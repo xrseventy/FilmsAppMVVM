@@ -13,7 +13,7 @@ interface TheMovieDbApiService {
     fun getMoviePopular(): Call<PopularMoviesList>
     //fun getMoviePopular(@Query("page") page: Int): Call<PopularMoviesList> //TODO all pages
 
-    @GET("/movie/{movie_id}")
-    fun getDetailedMovie(@Query("movie_id")movieId: Int): Call<DetailedMovie>
+    @GET("movie/{movie_id}")
+    fun getDetailedMovie(@Path("movie_id")movieId: Int): Call<DetailedMovie>
 
 }

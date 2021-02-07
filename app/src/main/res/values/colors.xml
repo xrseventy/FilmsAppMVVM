@@ -9,6 +9,8 @@
 
     <color name="pink_accent_400">#d7378a</color>
     <color name="background_900">#00003d</color>
+    <color name="background_400">#3e4882</color>
+    <color name="background_100">#00b7bbd2</color>
     <color name="blue_gradient_400">#4eb1e0</color>
     <color name="green_gradient_200">#9bcaa4</color>
 

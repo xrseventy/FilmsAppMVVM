@@ -6,19 +6,15 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.Navigation
+import com.bumptech.glide.Glide
 import com.xrseventy.listfilm.App
 import com.xrseventy.listfilm.R
 import com.xrseventy.listfilm.data.model.DetailedMovie
-import com.xrseventy.listfilm.presentation.viewModel.DetailedFilmViewModel
-import com.xrseventy.listfilm.presentation.viewModel.FilmListViewModel
+import com.xrseventy.listfilm.presentation.viewModels.DetailedFilmViewModel
 
 //TODO
 // Whats work: Here I get MovieID for another api request to the MovieDB
@@ -26,15 +22,20 @@ import com.xrseventy.listfilm.presentation.viewModel.FilmListViewModel
 // New request
 // GET /movie/{movie_id}
 //https://api.themoviedb.org/3/movie/3425?api_key=923bb540f8268da1eb90ceff700bfe02&language=en-US
+//https://api.themoviedb.org/movie/464052?api_key=923bb540f8268da1eb90ceff700bfe02&language=en
 class DetailedFilmFragment : Fragment() {
 
     private lateinit var app: App
     private lateinit var buttonBack: Button
     private lateinit var imageViewDetailed: ImageView
     private lateinit var textViewTitleMovie: TextView
+    private lateinit var textViewGenres: TextView
+    private lateinit var textViewVoteCount: TextView
+    private lateinit var ratingBar: RatingBar
+    private lateinit var textViewReleaseDate: TextView
     private lateinit var textViewOverviewMovie: TextView
     private lateinit var viewModel: DetailedFilmViewModel
-    var movieID: Int = 0
+    private var movieID: Int = 0
 
     companion object {
         fun newInstance() = DetailedFilmFragment()
@@ -58,12 +59,16 @@ class DetailedFilmFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         buttonBack = view.findViewById(R.id.buttonBack)
-        imageViewDetailed = view.findViewById(R.id.imageViewDetailedList)
+        imageViewDetailed = view.findViewById(R.id.imageViewDetailed)
         textViewTitleMovie = view.findViewById(R.id.textViewTitleDetailedFilm)
+        textViewGenres = view.findViewById(R.id.textViewDetailedGenres)
+        textViewVoteCount = view.findViewById(R.id.textViewDetailedVoteCount)
+        ratingBar = view.findViewById(R.id.ratingBarDetailed)
+        textViewReleaseDate =  view.findViewById(R.id.textViewDetailedReleaseDate)
         textViewOverviewMovie = view.findViewById(R.id.textViewDetailedFilmOverview)
         initViewModel()
         setClickListenerOnBackButton()
-        //setDetailedMovie()
+        setDetailedMovie()
         Log.d(this.toString(), "log ID $movieID")
 
 
@@ -89,6 +94,7 @@ class DetailedFilmFragment : Fragment() {
         viewModel.detailedMovie.observe(viewLifecycleOwner) {
             if (it != null) {
                setMovieDetails(it)
+                setImageViewDetailed(it.poster_path.toString())
             } else {
                 Log.d(this.toString(), "Error loading list")
             }
@@ -97,6 +103,20 @@ class DetailedFilmFragment : Fragment() {
 
     private fun setMovieDetails(movie: DetailedMovie){
         textViewTitleMovie.text = movie.title
+        textViewGenres.text = movie.genres.subList(0, 1).toString()
+        textViewVoteCount.text = movie.vote_count.toString()
+        ratingBar.rating = movie.vote_average.toFloat() / 2
+        textViewReleaseDate.text = movie.release_date.toString()
         textViewOverviewMovie.text = movie.overview
+
     }
+
+    private fun setImageViewDetailed(pathToImage: String)
+    {
+        Glide.with(this)
+            .load(POSTER_BASE_URL + pathToImage)
+            .into(imageViewDetailed)
+    }
+
+    val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500"
 }
