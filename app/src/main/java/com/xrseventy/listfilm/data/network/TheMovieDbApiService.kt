@@ -6,7 +6,6 @@ import com.xrseventy.listfilm.data.model.PopularMoviesList
 import retrofit2.Call
 import retrofit2.http.*
 
-
 interface TheMovieDbApiService {
 
     @GET("movie/popular")

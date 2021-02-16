@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
@@ -44,7 +45,7 @@ class FilmListFragment : Fragment(), FilmListClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //retainInstance = true
+        retainInstance = true
         initViewModel()
        // app = requireContext().applicationContext as App -> AppContiner
     //    app = requireContext().applicationContext as App
@@ -60,6 +61,7 @@ class FilmListFragment : Fragment(), FilmListClickListener {
         recyclerViewFilmList = view.findViewById(R.id.recyclerViewFilmList)
 //  navController = Navigation.findNavController(view)
        //navController = NavHostFragment.findNavController(this)
+        (activity as AppCompatActivity).supportActionBar?.show()
         showProgressBar(true)
         initAdapter()
         checkOrientationForFilmList(view)

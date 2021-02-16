@@ -10,4 +10,10 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">8dp</item>
     </style>
+
+
+    <style name="FragmentTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+    </style>
 </resources>

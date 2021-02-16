@@ -15,13 +15,11 @@
     app:cardBackgroundColor="@color/background_900"
     >
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/movieItemList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageViewItem"
@@ -34,22 +32,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-
             />
-
-
-        <TextView
-            android:id="@+id/inItemGenerers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="67dp"
-            android:text="Genres"
-            android:textColor="@color/pink_accent_400"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
 
         <TextView
             android:id="@+id/inItemVoteCount"
@@ -71,11 +54,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginBottom="50dp"
             android:numStars="5"
             android:stepSize="0.2"
             android:theme="@style/MyRatingBar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inItemGenerers" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/inItemTitle"
@@ -96,9 +80,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
+            android:layout_marginBottom="8dp"
             android:text="releaseDate"
             android:textColor="@color/white"
             android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/inItemTitle"
             app:layout_constraintTop_toBottomOf="@+id/inItemTitle"
             tools:ignore="SmallSp" />

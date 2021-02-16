@@ -2,13 +2,12 @@ package com.xrseventy.listfilm.presentation.filmLIstFragment
 
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.xrseventy.listfilm.App
@@ -36,6 +35,7 @@ class DetailedFilmFragment : Fragment() {
     private lateinit var textViewOverviewMovie: TextView
     private lateinit var viewModel: DetailedFilmViewModel
     private var movieID: Int = 0
+   // private lateinit var  navController: NavController
 
     companion object {
         fun newInstance() = DetailedFilmFragment()
@@ -46,6 +46,13 @@ class DetailedFilmFragment : Fragment() {
 
         movieID = requireArguments().getInt("movieID")
         app = requireContext().applicationContext as App
+        (activity as AppCompatActivity).supportActionBar?.hide()
+//        // my_child_toolbar is defined in the layout file
+//        setSupportActionBar(findViewById(R.id.my_child_toolbar))
+//
+//        // Get a support ActionBar corresponding to this toolbar and enable the Up button
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
     }
 
     override fun onCreateView(
@@ -71,6 +78,12 @@ class DetailedFilmFragment : Fragment() {
         setDetailedMovie()
         Log.d(this.toString(), "log ID $movieID")
 
+//        navController.addOnDestinationChangedListener { _, destination, _ ->
+//            if (destination.id == R.id.searchFragment) {
+//                binding.toolbar.navigationIcon = null
+//            } else {
+//            }
+//        }
 
 
         val toast =
@@ -78,16 +91,34 @@ class DetailedFilmFragment : Fragment() {
         toast.setGravity(Gravity.TOP, 0, 170)
         toast.show()
     }
+
+//    override fun onSupportNavigateUp(): Boolean {
+//        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+//    }
+
     private fun initViewModel(){
         //viewModel = ViewModelProvider(this).get(DetailedFilmViewModel::class.java)
         viewModel = app.appContainer.getFilmListViewModel(this)
     }
+
 
     private fun setClickListenerOnBackButton(){
         buttonBack.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_detailedFilmFragment_to_filmListFragment)
         )
     }
+
+
+
+
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//
+//
+//        when(item.itemId){
+//            android.R.id.home -> Navigation.createNavigateOnClickListener(R.id.action_detailedFilmFragment_to_filmListFragment)
+//        }
+//        return super.onOptionsItemSelected(item)
+//    }
 
     private fun setDetailedMovie(){
         viewModel.loadDetailedMovie(movieID)
