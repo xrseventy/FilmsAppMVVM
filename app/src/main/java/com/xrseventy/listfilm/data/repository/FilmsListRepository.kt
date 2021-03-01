@@ -13,10 +13,11 @@ import retrofit2.Response
 
 class FilmsListRepository(private val networkModule: NetworkModule) {
 
-    fun makeApiCallGetListPopularMovies(callback: LoadFilmListCallBack) {
+    private fun makeApiCallGetListPopularMovies(callback: LoadFilmListCallBack) {
 
         var popularMovieList: PopularMoviesList
-        val popularMovieCall: Call<PopularMoviesList> = networkModule.theMovieDbApiService.getMoviePopular()
+        val popularMovieCall: Call<PopularMoviesList> =
+            networkModule.theMovieDbApiService.getMoviePopular()
 
         popularMovieCall.enqueue(object : Callback<PopularMoviesList> {
 
@@ -25,8 +26,8 @@ class FilmsListRepository(private val networkModule: NetworkModule) {
             }
 
             override fun onResponse(
-                    call: Call<PopularMoviesList>,
-                    response: Response<PopularMoviesList>
+                call: Call<PopularMoviesList>,
+                response: Response<PopularMoviesList>
             ) {
                 if (response.isSuccessful) {
                     popularMovieList = response.body()!!
@@ -53,45 +54,45 @@ class FilmsListRepository(private val networkModule: NetworkModule) {
     }
 
 
+    private fun makeApiCallGetDetailedMovie(callback: LoadDetailedMovieCallback, movieId: Int) {
 
-        fun makeApiCallGetDetailedMovie(callback: LoadDetailedMovieCallback, movieId: Int) {
+        var detailedMovie: DetailedMovie
+        val detailedMovieCall: Call<DetailedMovie> =
+            networkModule.theMovieDbApiService.getDetailedMovie(movieId)
 
-            var detailedMovie: DetailedMovie
-            val detailedMovieCall: Call<DetailedMovie> = networkModule.theMovieDbApiService.getDetailedMovie(movieId)
+        detailedMovieCall.enqueue(object : Callback<DetailedMovie> {
 
-            detailedMovieCall.enqueue(object : Callback<DetailedMovie> {
+            override fun onFailure(call: Call<DetailedMovie>, t: Throwable) {
+                callback.onError()
+            }
 
-                override fun onFailure(call: Call<DetailedMovie>, t: Throwable) {
+            override fun onResponse(
+                call: Call<DetailedMovie>,
+                response: Response<DetailedMovie>
+            ) {
+                if (response.isSuccessful) {
+                    detailedMovie = response.body()!!
+                    callback.onSuccess(detailedMovie)
+                } else {
                     callback.onError()
                 }
+            }
+        })
+    }
 
-                override fun onResponse(
-                    call: Call<DetailedMovie>,
-                    response: Response<DetailedMovie>
-                ) {
-                    if (response.isSuccessful) {
-                        detailedMovie = response.body()!!
-                        callback.onSuccess(detailedMovie)
-                    } else {
-                        callback.onError()
-                    }
-                }
-            })
-        }
+    fun fetchDetailedMovieFromResponseTask(movieID: Int, callBack: LoadDetailedMovieCallback) {
 
-        fun fetchDetailedMovieFromResponseTask(movieID : Int, callBack: LoadDetailedMovieCallback) {
+        makeApiCallGetDetailedMovie(object : LoadDetailedMovieCallback {
 
-            makeApiCallGetDetailedMovie(object : LoadDetailedMovieCallback {
+            override fun onSuccess(listMovieItem: DetailedMovie) {
+                callBack.onSuccess(listMovieItem)
+            }
 
-                override fun onSuccess(listMovieItem: DetailedMovie) {
-                    callBack.onSuccess(listMovieItem)
-                }
-
-                override fun onError() {
-                    callBack.onError()
-                }
-            }, movieID)
-        }
+            override fun onError() {
+                callBack.onError()
+            }
+        }, movieID)
+    }
 
 
 //TODO work without callbacks

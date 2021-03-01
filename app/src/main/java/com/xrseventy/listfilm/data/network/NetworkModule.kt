@@ -23,17 +23,6 @@ class NetworkModule(resources: Resources) {
     private val languageHeader = resources.getString(R.string.language_header)
     private var getSystemLanguage = (Locale.getDefault().language.toString())
 
-
-//    private val loggingInterceptor = HttpLoggingInterceptor { chain ->
-//        HttpLoggingInterceptor().level =
-//            if (BuildConfig.DEBUG) {
-//                HttpLoggingInterceptor.Level.BODY
-//            } else {
-//                HttpLoggingInterceptor.Level.NONE
-//            }
-//        return@HttpLoggingInterceptor
-//    }
-
     private val loggingInterceptor = run {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.apply {
@@ -71,8 +60,6 @@ class NetworkModule(resources: Resources) {
         .build()
 
     val theMovieDbApiService: TheMovieDbApiService = retrofit.create()
-
-    //val ApiServiceForDetailedMovie: TheMovieDbApiService =
 
 }
 

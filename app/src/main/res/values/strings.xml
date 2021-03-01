@@ -6,6 +6,6 @@
     <string name="base_url" translatable="false">https://api.themoviedb.org/3/</string>
     <string name="language_header" translatable="false">language</string>
 
-    <string name="button_retry">Retry</string>
+    <string name="button_retry">Tap to retry</string>
     <string name="no_internet_connection">Sorry, no internet connection</string>
 </resources>

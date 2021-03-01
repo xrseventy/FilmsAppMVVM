@@ -9,9 +9,6 @@ import com.xrseventy.listfilm.data.model.MovieItem
 
 import com.xrseventy.listfilm.presentation.FilmListFragmentScreenState
 
-//ViewModel не должны ничего знать о фрагментах
-//MVVM, we don’t use interfaces for communicating to View and ViewModel
-
 class FilmListViewModel(private val filmsListRepository: FilmsListRepository) : ViewModel() {
 
     private var _movieList: MutableLiveData<List<MovieItem>> = MutableLiveData()
@@ -21,7 +18,8 @@ class FilmListViewModel(private val filmsListRepository: FilmsListRepository) : 
     private var screenState: FilmListFragmentScreenState = FilmListFragmentScreenState(
         showProgressBar = false,
         showErrorMessage = false,
-        itemClicked = false
+        itemClicked = false,
+        btnRetryClicked = false
     )
 
 
@@ -34,10 +32,16 @@ class FilmListViewModel(private val filmsListRepository: FilmsListRepository) : 
             //filmsListRepository.fetchMovieListFromResponseTask(object : LoadFilmListCallBack {
             override fun onSuccess(listMovieItem: List<MovieItem>) {
                 _movieList.value = listMovieItem
+                updateScreenState(
+                    showErrorMessage = false,
+                    showProgressBar = false
+                )
             }
 
             override fun onError() {
-                TODO("Not yet implemented")
+                updateScreenState(
+                    showErrorMessage = true
+                )
             }
 
         })
@@ -47,12 +51,14 @@ class FilmListViewModel(private val filmsListRepository: FilmsListRepository) : 
     private fun updateScreenState(
         showProgressBar: Boolean = screenState.showProgressBar,
         showErrorMessage: Boolean = screenState.showErrorMessage,
-        itemClicked: Boolean = screenState.itemClicked
+        itemClicked: Boolean = screenState.itemClicked,
+        btnRetryClicked: Boolean = screenState.btnRetryClicked
     ) {
         screenState = FilmListFragmentScreenState(
             showProgressBar,
             showErrorMessage,
-            itemClicked
+            itemClicked,
+            btnRetryClicked,
         )
     }
 

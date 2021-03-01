@@ -1,7 +1,7 @@
 package com.xrseventy.listfilm.data.model
 import com.google.gson.annotations.SerializedName
 
-data class PopularMoviesList(
+class PopularMoviesList(
     val page: Int,
     val results: List<MovieItem>,
     @SerializedName("total_pages")
@@ -10,7 +10,7 @@ data class PopularMoviesList(
     val totalResults: Int
 )
 
-data class MovieItem(
+class MovieItem(
     val adult: Boolean,
     @SerializedName("backdrop_path")
     val backdropPath: String,

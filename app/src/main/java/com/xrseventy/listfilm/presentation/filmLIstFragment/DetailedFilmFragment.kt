@@ -22,7 +22,7 @@ import com.xrseventy.listfilm.presentation.viewModels.DetailedFilmViewModel
 // GET /movie/{movie_id}
 //https://api.themoviedb.org/3/movie/3425?api_key=923bb540f8268da1eb90ceff700bfe02&language=en-US
 //https://api.themoviedb.org/movie/464052?api_key=923bb540f8268da1eb90ceff700bfe02&language=en
-class DetailedFilmFragment : Fragment() {
+class DetailedFilmFragment : Fragment(R.layout.detailed_film_fragment) {
 
     private lateinit var app: App
     private lateinit var buttonBack: Button
@@ -55,12 +55,12 @@ class DetailedFilmFragment : Fragment() {
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.detailed_film_fragment, container, false)
-    }
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        return inflater.inflate(R.layout.detailed_film_fragment, container, false)
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -71,33 +71,16 @@ class DetailedFilmFragment : Fragment() {
         textViewGenres = view.findViewById(R.id.textViewDetailedGenres)
         textViewVoteCount = view.findViewById(R.id.textViewDetailedVoteCount)
         ratingBar = view.findViewById(R.id.ratingBarDetailed)
-        textViewReleaseDate =  view.findViewById(R.id.textViewDetailedReleaseDate)
+        textViewReleaseDate = view.findViewById(R.id.textViewDetailedReleaseDate)
         textViewOverviewMovie = view.findViewById(R.id.textViewDetailedFilmOverview)
         initViewModel()
         setClickListenerOnBackButton()
         setDetailedMovie()
         Log.d(this.toString(), "log ID $movieID")
-
-//        navController.addOnDestinationChangedListener { _, destination, _ ->
-//            if (destination.id == R.id.searchFragment) {
-//                binding.toolbar.navigationIcon = null
-//            } else {
-//            }
-//        }
-
-
-        val toast =
-            Toast.makeText(activity, "Second Fragment", Toast.LENGTH_LONG)
-        toast.setGravity(Gravity.TOP, 0, 170)
-        toast.show()
     }
 
-//    override fun onSupportNavigateUp(): Boolean {
-//        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-//    }
 
     private fun initViewModel(){
-        //viewModel = ViewModelProvider(this).get(DetailedFilmViewModel::class.java)
         viewModel = app.appContainer.getFilmListViewModel(this)
     }
 
@@ -107,18 +90,6 @@ class DetailedFilmFragment : Fragment() {
             Navigation.createNavigateOnClickListener(R.id.action_detailedFilmFragment_to_filmListFragment)
         )
     }
-
-
-
-
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//
-//
-//        when(item.itemId){
-//            android.R.id.home -> Navigation.createNavigateOnClickListener(R.id.action_detailedFilmFragment_to_filmListFragment)
-//        }
-//        return super.onOptionsItemSelected(item)
-//    }
 
     private fun setDetailedMovie(){
         viewModel.loadDetailedMovie(movieID)

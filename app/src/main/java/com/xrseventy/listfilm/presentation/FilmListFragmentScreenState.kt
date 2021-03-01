@@ -4,7 +4,7 @@ class FilmListFragmentScreenState (
         val showProgressBar: Boolean,
         val showErrorMessage : Boolean,
         val itemClicked: Boolean,
-        //val btnRetry: Boolean,
+        val btnRetryClicked: Boolean,
        // val swipeRetry: Boolean,
 
 ){
