@@ -1,8 +1,9 @@
 package com.xrseventy.listfilm.data.network
 
-import com.xrseventy.listfilm.data.model.DetailedMovie
+
+import com.xrseventy.listfilm.data.model.DetailedMovieApi
 
 interface LoadDetailedMovieCallback {
-    fun onSuccess(detailedMovie: DetailedMovie)
+    fun onSuccess(detailedMovieApi: DetailedMovieApi)
     fun onError()
 }

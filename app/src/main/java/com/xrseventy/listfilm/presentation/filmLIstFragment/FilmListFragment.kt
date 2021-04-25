@@ -28,32 +28,24 @@ import com.xrseventy.listfilm.presentation.FilmListFragmentScreenState
 import com.xrseventy.listfilm.presentation.filmListRecyclerView.FilmListAdapter
 import com.xrseventy.listfilm.presentation.viewModels.FilmListViewModel
 
-class FilmListFragment() : Fragment(R.layout.film_list_fragment), FilmListClickListener {
+class FilmListFragment : Fragment(R.layout.film_list_fragment), FilmListClickListener {
 
     private lateinit var viewModel: FilmListViewModel
     private var recyclerViewFilmList: RecyclerView? = null
     private lateinit var app: App
-    private lateinit var  navController: NavController
+    private lateinit var navController: NavController
 
 
-//    companion object {
-//        fun newInstance() = FilmListFragment()
-//    }
     override fun onAttach(context: Context) {
         super.onAttach(context)
- app = requireContext().applicationContext as App
-}
+        app = requireContext().applicationContext as App
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
         initViewModel()
     }
-
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-//        return inflater.inflate(R.layout.film_list_fragment, container, false)
-//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -68,15 +60,10 @@ class FilmListFragment() : Fragment(R.layout.film_list_fragment), FilmListClickL
         navController = Navigation.findNavController(view)
         //renderView(screenState)
     }
-    fun initBtnRetry(){
+
+    fun initBtnRetry() {
 
     }
-
-
-//     fun renderView(screenState: FilmListFragmentScreenState ) {
-//         screenState.
-//
-//    }
 
 
     private fun checkOrientationForFilmList(view: View) {
@@ -93,14 +80,14 @@ class FilmListFragment() : Fragment(R.layout.film_list_fragment), FilmListClickL
 
     }
 
-    private fun loadListFilm(){
+    private fun loadListFilm() {
         viewModel.loadMovieList()
         viewModel.movieList.observe(viewLifecycleOwner) {
             updateAdapter(it)
         }
     }
 
-    private fun initAdapter(){
+    private fun initAdapter() {
         val list: List<MovieItem> = emptyList()
         updateAdapter(list)
 
@@ -124,7 +111,7 @@ class FilmListFragment() : Fragment(R.layout.film_list_fragment), FilmListClickL
         setScrollListenerOnFilmList()
     }
 
-    private fun setScrollListenerOnFilmList(){
+    private fun setScrollListenerOnFilmList() {
         recyclerViewFilmList?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {

@@ -1,7 +1,7 @@
 package com.xrseventy.listfilm.data.repository
 
-import android.util.Log
-import com.xrseventy.listfilm.data.model.DetailedMovie
+import com.xrseventy.listfilm.data.model.DetailedMovieApi
+
 import com.xrseventy.listfilm.data.network.NetworkModule
 import com.xrseventy.listfilm.data.network.LoadFilmListCallBack
 import com.xrseventy.listfilm.data.model.MovieItem
@@ -56,19 +56,19 @@ class FilmsListRepository(private val networkModule: NetworkModule) {
 
     private fun makeApiCallGetDetailedMovie(callback: LoadDetailedMovieCallback, movieId: Int) {
 
-        var detailedMovie: DetailedMovie
-        val detailedMovieCall: Call<DetailedMovie> =
+        var detailedMovie: DetailedMovieApi
+        val detailedMovieCall: Call<DetailedMovieApi> =
             networkModule.theMovieDbApiService.getDetailedMovie(movieId)
 
-        detailedMovieCall.enqueue(object : Callback<DetailedMovie> {
+        detailedMovieCall.enqueue(object : Callback<DetailedMovieApi> {
 
-            override fun onFailure(call: Call<DetailedMovie>, t: Throwable) {
+            override fun onFailure(call: Call<DetailedMovieApi>, t: Throwable) {
                 callback.onError()
             }
 
             override fun onResponse(
-                call: Call<DetailedMovie>,
-                response: Response<DetailedMovie>
+                call: Call<DetailedMovieApi>,
+                response: Response<DetailedMovieApi>
             ) {
                 if (response.isSuccessful) {
                     detailedMovie = response.body()!!
@@ -84,7 +84,7 @@ class FilmsListRepository(private val networkModule: NetworkModule) {
 
         makeApiCallGetDetailedMovie(object : LoadDetailedMovieCallback {
 
-            override fun onSuccess(listMovieItem: DetailedMovie) {
+            override fun onSuccess(listMovieItem: DetailedMovieApi) {
                 callBack.onSuccess(listMovieItem)
             }
 
@@ -94,97 +94,4 @@ class FilmsListRepository(private val networkModule: NetworkModule) {
         }, movieID)
     }
 
-
-//TODO work without callbacks
-
-//    fun getListOfPopularMovies(): MutableLiveData<List<MovieItem>> {
-//        val popularList = makeApiCallGetListPopularMovies()
-//        // getListGenres()
-//        return popularList.map { PopularMoviesList -> PopularMoviesList.results } as MutableLiveData<List<MovieItem>>
-//    }
-
 }
-
-//private fun getGenreApiCall(callback: LoadGenresCallBack): GenresList {
-//    val movieGenres = GenresList()
-//    val movieGenre: Call<GenresList> = theMovieDbApiService.getGenre(
-//            NetworkModule.API_KEY,
-//            (Locale.getDefault().language.toString())
-//    )
-//    movieGenre.enqueue(object : Callback<GenresList> {
-//
-//        override fun onFailure(call: Call<GenresList>, t: Throwable) {
-//            movieGenres.value = null
-//        }
-//
-//        override fun onResponse(
-//                call: Call<GenresList>,
-//                response: Response<GenresList>
-//
-//        ) {
-//            // val movieGenres: GenresList? = response.body()
-//            movieGenres.value = response.body()
-//            val url = response.raw().request().url()
-//            Log.d(this.toString(), "log movieGenres $movieGenres")
-//            Log.d(this.toString(), "log genreUrl = $url")
-//        }
-//    })
-//    //https://api.themoviedb.org/3/genre/movie/list?api_key=923bb540f8268da1eb90ceff700bfe02&language=en-US
-//
-//}
-
-
-//fun getListGenres(): LiveData<List<GenresItem>> {
-//
-//    val loadMovieGenres: LiveData<GenresList> = getGenreApiCall()
-//    val movieGenresItem: LiveData<List<GenresItem>> =
-//            loadMovieGenres.map { GenresList -> GenresList.genres }
-//
-//    Log.d(this.toString(), "log genres = $movieGenresItem")
-//
-//    return movieGenresItem
-//
-//}
-
-//TODO for config
-//private fun getConfigurationApiCall() : Configuration{
-//        Log.d(this.toString(), "log 2")
-//
-//        val configurationTheMovieDb = MutableLiveData<Configuration>()
-//
-//        val configurationCall: Call<Configuration> =
-//            NetworkModule.theMovieDbApiService.getConfiguration(NetworkModule.API_KEY
-//            )
-//
-//        configurationCall.enqueue(object : Callback<Configuration> {
-//
-//            override fun onFailure(call: Call<Configuration>, t: Throwable) {
-//                configurationTheMovieDb.postValue(null)
-//                Log.d(this.toString(), "log 3")
-//            }
-//
-//            override fun onResponse(
-//                call: Call<Configuration>,
-//                response: Response<Configuration>
-//
-//            ) {
-//                Log.d(this.toString(), "log 4")
-//                configurationTheMovieDb.value = response.body()
-//                val url = response.raw().request().url()
-//                Log.d(this.toString(), "log url = $url")
-//
-//            }
-//        })
-//        return configurationTheMovieDb
-//
-//    }
-//
-//
-//
-//    fun getConfigurationOfImages() : String {
-//        Log.d(this.toString(), "log 1")
-//        val configurationTheMovieDb = getConfigurationApiCall()
-//        conf
-//        return configurationTheMovieDb.map { Configuration ->  Configuration.images.baseUrl.toString()}
-//
-//    }

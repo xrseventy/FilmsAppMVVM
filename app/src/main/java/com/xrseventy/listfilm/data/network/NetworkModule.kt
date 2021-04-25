@@ -33,7 +33,7 @@ class NetworkModule(resources: Resources) {
     private val requestInterceptor = Interceptor { chain ->
 
         val url: HttpUrl = chain.request()
-            .url()
+            .url
             .newBuilder()
             .addQueryParameter(apiKeyHeader, apiKey)
             .addQueryParameter(languageHeader, getSystemLanguage)

@@ -12,14 +12,13 @@
     android:clickable="true"
     android:focusable="true"
     app:cardCornerRadius="10dp"
-    app:cardBackgroundColor="@color/background_900"
+    app:cardBackgroundColor="@color/black"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/movieItemList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageViewItem"
@@ -30,9 +29,10 @@
             app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
             app:layout_constraintDimensionRatio="200:250"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/inItemVoteCount"
@@ -54,24 +54,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="8dp"
             android:numStars="5"
             android:stepSize="0.2"
             android:theme="@style/MyRatingBar"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toTopOf="@+id/inItemTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewItem" />
 
         <TextView
             android:id="@+id/inItemTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="5dp"
-            android:inputType="textMultiLine"
+            android:layout_marginEnd="8dp"
             android:text="Title "
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold"
+            android:gravity="start"
+            app:layout_constraintBottom_toTopOf="@+id/inItemReleaseDate"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
@@ -87,8 +90,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/inItemTitle"
             app:layout_constraintTop_toBottomOf="@+id/inItemTitle"
-            tools:ignore="SmallSp" />
-
-
+            tools:ignore="SmallSp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

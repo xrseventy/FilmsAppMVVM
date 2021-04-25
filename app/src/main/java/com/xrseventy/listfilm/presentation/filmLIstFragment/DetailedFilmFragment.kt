@@ -7,13 +7,17 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.xrseventy.listfilm.App
 import com.xrseventy.listfilm.R
-import com.xrseventy.listfilm.data.model.DetailedMovie
+import com.xrseventy.listfilm.data.model.DetailedMovieApi
+import com.xrseventy.listfilm.data.model.Genre
+import com.xrseventy.listfilm.databinding.DetailedFilmFragmentBinding
 import com.xrseventy.listfilm.presentation.viewModels.DetailedFilmViewModel
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 //TODO
 // Whats work: Here I get MovieID for another api request to the MovieDB
@@ -23,6 +27,9 @@ import com.xrseventy.listfilm.presentation.viewModels.DetailedFilmViewModel
 //https://api.themoviedb.org/3/movie/3425?api_key=923bb540f8268da1eb90ceff700bfe02&language=en-US
 //https://api.themoviedb.org/movie/464052?api_key=923bb540f8268da1eb90ceff700bfe02&language=en
 class DetailedFilmFragment : Fragment(R.layout.detailed_film_fragment) {
+
+    private var _viewBinding: DetailedFilmFragmentBinding? = null
+    private val viewBinding get() = _viewBinding
 
     private lateinit var app: App
     private lateinit var buttonBack: Button
@@ -35,11 +42,7 @@ class DetailedFilmFragment : Fragment(R.layout.detailed_film_fragment) {
     private lateinit var textViewOverviewMovie: TextView
     private lateinit var viewModel: DetailedFilmViewModel
     private var movieID: Int = 0
-   // private lateinit var  navController: NavController
-
-    companion object {
-        fun newInstance() = DetailedFilmFragment()
-    }
+    private val listGenre : MutableList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,18 +57,20 @@ class DetailedFilmFragment : Fragment(R.layout.detailed_film_fragment) {
 //        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
     }
-
+//
 //    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
+//        inflater: LayoutInflater,
+//        container: ViewGroup?,
 //        savedInstanceState: Bundle?
 //    ): View? {
-//        return inflater.inflate(R.layout.detailed_film_fragment, container, false)
+//        _viewBinding = DetailedFilmFragmentBinding.inflate(inflater, container, false)
+//        return viewBinding?.root
+//
 //    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        buttonBack = view.findViewById(R.id.buttonBack)
+       // viewBinding.buttonBack
         imageViewDetailed = view.findViewById(R.id.imageViewDetailed)
         textViewTitleMovie = view.findViewById(R.id.textViewTitleDetailedFilm)
         textViewGenres = view.findViewById(R.id.textViewDetailedGenres)
@@ -86,7 +91,7 @@ class DetailedFilmFragment : Fragment(R.layout.detailed_film_fragment) {
 
 
     private fun setClickListenerOnBackButton(){
-        buttonBack.setOnClickListener(
+        viewBinding?.buttonBack?.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_detailedFilmFragment_to_filmListFragment)
         )
     }
@@ -96,22 +101,31 @@ class DetailedFilmFragment : Fragment(R.layout.detailed_film_fragment) {
         viewModel.detailedMovie.observe(viewLifecycleOwner) {
             if (it != null) {
                setMovieDetails(it)
-                setImageViewDetailed(it.poster_path.toString())
+                setImageViewDetailed(it.poster_path)
             } else {
                 Log.d(this.toString(), "Error loading list")
             }
         }
     }
+    fun Date.getFormattedDate(simpleDateFormat: SimpleDateFormat): String = simpleDateFormat.format(this)
+    private fun setMovieDetails(movie: DetailedMovieApi){
 
-    private fun setMovieDetails(movie: DetailedMovie){
+        mapGenres(movie.genres)
         textViewTitleMovie.text = movie.title
-        textViewGenres.text = movie.genres.subList(0, 1).toString()
+        textViewGenres.text = listGenre.toString()
         textViewVoteCount.text = movie.vote_count.toString()
         ratingBar.rating = movie.vote_average.toFloat() / 2
-        textViewReleaseDate.text = movie.release_date.toString()
+        textViewReleaseDate.text = movie.release_date.getFormattedDate(SimpleDateFormat("d MMMM YYYY"))
         textViewOverviewMovie.text = movie.overview
-
     }
+
+    private fun mapGenres(genres: List<Genre>) =
+        genres.map {
+            getListGenres(it.name)
+        }
+
+    private fun getListGenres(genreName: String) =
+        listGenre.add(genreName)
 
     private fun setImageViewDetailed(pathToImage: String)
     {
@@ -121,4 +135,12 @@ class DetailedFilmFragment : Fragment(R.layout.detailed_film_fragment) {
     }
 
     val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500"
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+    }
+
+    companion object {
+        fun newInstance() = DetailedFilmFragment()
+    }
 }

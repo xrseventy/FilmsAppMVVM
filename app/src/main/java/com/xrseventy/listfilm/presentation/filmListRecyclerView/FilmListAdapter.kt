@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 import com.xrseventy.listfilm.R
 import com.xrseventy.listfilm.data.model.MovieItem
-
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class FilmListAdapter(
@@ -16,6 +17,7 @@ class FilmListAdapter(
 ) :
     RecyclerView.Adapter<FilmListViewHolder>() {
 
+    fun Date.getFormattedDate(simpleDateFormat: SimpleDateFormat): String = simpleDateFormat.format(this)
     val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500"
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmListViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(
@@ -43,7 +45,7 @@ class FilmListAdapter(
     private fun bindView(viewHolder: FilmListViewHolder, currentPosition: MovieItem ){
         viewHolder.inItemTitle.text = currentPosition.title
         viewHolder.inItemRating.rating = currentPosition.voteAverage.toFloat() / 2 //TODO logic go off
-        viewHolder.inItemReleaseDate.text = currentPosition.releaseDate
+        viewHolder.inItemReleaseDate.text = currentPosition.releaseDate.getFormattedDate(SimpleDateFormat("d MMMM YYYY"))
         viewHolder.inItemVoteCount.text = currentPosition.voteCount.toString() + " reviews" //TODO plurals res
     }
 }
