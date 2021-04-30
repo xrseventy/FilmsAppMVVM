@@ -5,16 +5,14 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageViewDetailed"
+        android:id="@+id/imgViewIncludeDetailed"
         android:layout_width="0dp"
         android:layout_height="450dp"
         android:contentDescription="Poster for detailed fragment"
-
+        android:foreground="@drawable/gradient_shape_detailed_fragment"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:foreground="@drawable/gradient_shape_detailed_fragment"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

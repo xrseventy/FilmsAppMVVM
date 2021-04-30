@@ -3,7 +3,6 @@ package com.xrseventy.listfilm.presentation.filmLIstFragment
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
@@ -28,21 +27,13 @@ import kotlin.collections.ArrayList
 //https://api.themoviedb.org/movie/464052?api_key=923bb540f8268da1eb90ceff700bfe02&language=en
 class DetailedFilmFragment : Fragment(R.layout.detailed_film_fragment) {
 
-    private var _viewBinding: DetailedFilmFragmentBinding? = null
-    private val viewBinding get() = _viewBinding
+    private var viewBinding: DetailedFilmFragmentBinding? = null
+    //private val viewBinding get() = _viewBinding
 
     private lateinit var app: App
-    private lateinit var buttonBack: Button
-    private lateinit var imageViewDetailed: ImageView
-    private lateinit var textViewTitleMovie: TextView
-    private lateinit var textViewGenres: TextView
-    private lateinit var textViewVoteCount: TextView
-    private lateinit var ratingBar: RatingBar
-    private lateinit var textViewReleaseDate: TextView
-    private lateinit var textViewOverviewMovie: TextView
     private lateinit var viewModel: DetailedFilmViewModel
     private var movieID: Int = 0
-    private val listGenre : MutableList<String> = ArrayList()
+    private val listGenre: MutableList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,27 +48,17 @@ class DetailedFilmFragment : Fragment(R.layout.detailed_film_fragment) {
 //        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
     }
-//
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        _viewBinding = DetailedFilmFragmentBinding.inflate(inflater, container, false)
-//        return viewBinding?.root
-//
-//    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+        viewBinding = DetailedFilmFragmentBinding.inflate(inflater, container, false)
+        return viewBinding?.root
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-       // viewBinding.buttonBack
-        imageViewDetailed = view.findViewById(R.id.imageViewDetailed)
-        textViewTitleMovie = view.findViewById(R.id.textViewTitleDetailedFilm)
-        textViewGenres = view.findViewById(R.id.textViewDetailedGenres)
-        textViewVoteCount = view.findViewById(R.id.textViewDetailedVoteCount)
-        ratingBar = view.findViewById(R.id.ratingBarDetailed)
-        textViewReleaseDate = view.findViewById(R.id.textViewDetailedReleaseDate)
-        textViewOverviewMovie = view.findViewById(R.id.textViewDetailedFilmOverview)
         initViewModel()
         setClickListenerOnBackButton()
         setDetailedMovie()
@@ -85,38 +66,41 @@ class DetailedFilmFragment : Fragment(R.layout.detailed_film_fragment) {
     }
 
 
-    private fun initViewModel(){
-        viewModel = app.appContainer.getFilmListViewModel(this)
+    private fun initViewModel() {
+        viewModel = app.appContainer.getDetailedViewModel(this)
     }
 
 
-    private fun setClickListenerOnBackButton(){
+    private fun setClickListenerOnBackButton() {
         viewBinding?.buttonBack?.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_detailedFilmFragment_to_filmListFragment)
         )
     }
 
-    private fun setDetailedMovie(){
+    private fun setDetailedMovie() {
         viewModel.loadDetailedMovie(movieID)
         viewModel.detailedMovie.observe(viewLifecycleOwner) {
-            if (it != null) {
-               setMovieDetails(it)
-                setImageViewDetailed(it.poster_path)
-            } else {
-                Log.d(this.toString(), "Error loading list")
-            }
+            setMovieDetails(it)
+            setImageViewDetailed(it.poster_path)
         }
     }
-    fun Date.getFormattedDate(simpleDateFormat: SimpleDateFormat): String = simpleDateFormat.format(this)
-    private fun setMovieDetails(movie: DetailedMovieApi){
 
-        mapGenres(movie.genres)
-        textViewTitleMovie.text = movie.title
-        textViewGenres.text = listGenre.toString()
-        textViewVoteCount.text = movie.vote_count.toString()
-        ratingBar.rating = movie.vote_average.toFloat() / 2
-        textViewReleaseDate.text = movie.release_date.getFormattedDate(SimpleDateFormat("d MMMM YYYY"))
-        textViewOverviewMovie.text = movie.overview
+    private fun Date.getFormattedDate(simpleDateFormat: SimpleDateFormat): String =
+        simpleDateFormat.format(this)
+
+    private fun setMovieDetails(movie: DetailedMovieApi) {
+        with(viewBinding ?: return) {
+            with(infoIncludeDetailed ?: return) {
+                textViewTitleDetailedFilm.text = movie.title
+                mapGenres(movie.genres)
+                textViewDetailedGenres.text = listGenre.toString()
+                textViewDetailedVoteCount.text = movie.vote_count.toString()
+                ratingBarDetailed.rating = movie.vote_average.toFloat() / 2
+                textViewDetailedReleaseDate.text =
+                    movie.release_date.getFormattedDate(SimpleDateFormat("d MMMM YYYY"))
+                textViewDetailedFilmOverview.text = movie.overview
+            }
+        }
     }
 
     private fun mapGenres(genres: List<Genre>) =
@@ -127,17 +111,19 @@ class DetailedFilmFragment : Fragment(R.layout.detailed_film_fragment) {
     private fun getListGenres(genreName: String) =
         listGenre.add(genreName)
 
-    private fun setImageViewDetailed(pathToImage: String)
-    {
-        Glide.with(this)
-            .load(POSTER_BASE_URL + pathToImage)
-            .into(imageViewDetailed)
+    private fun setImageViewDetailed(pathToImage: String) {
+        viewBinding?.imageViewIncludeDetailed?.let {
+            Glide.with(this)
+                .load(POSTER_BASE_URL + pathToImage)
+                .into(it.imgViewIncludeDetailed)
+        }
     }
 
     val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500"
 
     override fun onDestroyView() {
         super.onDestroyView()
+        viewBinding = null
     }
 
     companion object {

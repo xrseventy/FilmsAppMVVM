@@ -11,9 +11,8 @@
     android:layout_marginBottom="3dp"
     android:clickable="true"
     android:focusable="true"
-    app:cardCornerRadius="10dp"
     app:cardBackgroundColor="@color/black"
-    >
+    app:cardCornerRadius="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/movieItemList"
@@ -68,11 +67,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+            android:gravity="start"
             android:text="Title "
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:gravity="start"
             app:layout_constraintBottom_toTopOf="@+id/inItemReleaseDate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -90,6 +89,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/inItemTitle"
             app:layout_constraintTop_toBottomOf="@+id/inItemTitle"
-            tools:ignore="SmallSp"/>
+            tools:ignore="SmallSp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

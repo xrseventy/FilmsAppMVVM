@@ -17,7 +17,6 @@ class FilmListAdapter(
 ) :
     RecyclerView.Adapter<FilmListViewHolder>() {
 
-    fun Date.getFormattedDate(simpleDateFormat: SimpleDateFormat): String = simpleDateFormat.format(this)
     val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500"
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmListViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(
@@ -38,14 +37,19 @@ class FilmListAdapter(
 
         Log.d(this.toString(), "posterPath $posterPath")
         holder.bind(posterPath, filmListClickListener, currentPosition)
-       // holder.bind(posterPath, filmListClickListener, currentPosition)
         bindView(holder, currentPosition)
     }
+    private fun Date.getFormattedDate(simpleDateFormat: SimpleDateFormat): String = simpleDateFormat.format(this)
 
     private fun bindView(viewHolder: FilmListViewHolder, currentPosition: MovieItem ){
-        viewHolder.inItemTitle.text = currentPosition.title
-        viewHolder.inItemRating.rating = currentPosition.voteAverage.toFloat() / 2 //TODO logic go off
-        viewHolder.inItemReleaseDate.text = currentPosition.releaseDate.getFormattedDate(SimpleDateFormat("d MMMM YYYY"))
-        viewHolder.inItemVoteCount.text = currentPosition.voteCount.toString() + " reviews" //TODO plurals res
+        with(viewHolder) {
+            inItemTitle.text = currentPosition.title
+            inItemRating.rating =
+                currentPosition.voteAverage.toFloat() / 2 //TODO logic go off
+            inItemReleaseDate.text =
+                currentPosition.releaseDate.getFormattedDate(SimpleDateFormat("d MMMM YYYY"))
+            inItemVoteCount.text =
+                currentPosition.voteCount.toString() + " reviews" //TODO plurals res
+        }
     }
 }

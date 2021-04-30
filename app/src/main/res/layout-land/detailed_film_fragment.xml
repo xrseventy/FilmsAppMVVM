@@ -19,27 +19,24 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
-        android:id="@+id/imageViewDetailed"
+        android:id="@+id/imageViewIncludeDetailed"
         layout="@layout/detailed_film_image"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/includeInfoDetailed"
+        app:layout_constraintEnd_toStartOf="@+id/infoIncludeDetailed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-       />
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <include
-        android:id="@+id/includeInfoDetailed"
+        android:id="@+id/infoIncludeDetailed"
         layout="@layout/detailed_film_info"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="16dp"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/imageViewDetailed"
+        app:layout_constraintStart_toEndOf="@id/imageViewIncludeDetailed"
         app:layout_constraintTop_toTopOf="parent" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

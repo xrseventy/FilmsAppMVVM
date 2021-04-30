@@ -27,7 +27,7 @@ class AppContainer(resources: Resources) {
         ).get(FilmListViewModel::class.java)
     }
 
-    fun getFilmListViewModel(fragment: DetailedFilmFragment): DetailedFilmViewModel {
+    fun getDetailedViewModel(fragment: DetailedFilmFragment): DetailedFilmViewModel {
         return ViewModelProvider(
             fragment,
             MoviesViewModelFactory(filmListRepository)

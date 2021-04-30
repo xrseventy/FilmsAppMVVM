@@ -24,6 +24,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xrseventy.listfilm.App
 import com.xrseventy.listfilm.R
 import com.xrseventy.listfilm.data.model.MovieItem
+import com.xrseventy.listfilm.databinding.DetailedFilmFragmentBinding
+import com.xrseventy.listfilm.databinding.FilmListFragmentBinding
 import com.xrseventy.listfilm.presentation.FilmListFragmentScreenState
 import com.xrseventy.listfilm.presentation.filmListRecyclerView.FilmListAdapter
 import com.xrseventy.listfilm.presentation.viewModels.FilmListViewModel
@@ -31,10 +33,9 @@ import com.xrseventy.listfilm.presentation.viewModels.FilmListViewModel
 class FilmListFragment : Fragment(R.layout.film_list_fragment), FilmListClickListener {
 
     private lateinit var viewModel: FilmListViewModel
-    private var recyclerViewFilmList: RecyclerView? = null
     private lateinit var app: App
     private lateinit var navController: NavController
-
+    private var viewBinding: FilmListFragmentBinding? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -47,9 +48,18 @@ class FilmListFragment : Fragment(R.layout.film_list_fragment), FilmListClickLis
         initViewModel()
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        viewBinding = FilmListFragmentBinding.inflate(inflater, container, false)
+        return viewBinding?.root
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerViewFilmList = view.findViewById(R.id.recyclerViewFilmList)
         (activity as AppCompatActivity).supportActionBar?.show()
         showProgressBar(true)
         initAdapter()
@@ -65,12 +75,11 @@ class FilmListFragment : Fragment(R.layout.film_list_fragment), FilmListClickLis
 
     }
 
-
     private fun checkOrientationForFilmList(view: View) {
         if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            recyclerViewFilmList?.layoutManager = GridLayoutManager(view.context, 2)
+            viewBinding?.recyclerViewFilmList?.layoutManager = GridLayoutManager(view.context, 2)
         } else {
-            recyclerViewFilmList?.layoutManager =
+            viewBinding?.recyclerViewFilmList?.layoutManager =
                 LinearLayoutManager(view.context, RecyclerView.HORIZONTAL, false)
         }
     }
@@ -94,7 +103,7 @@ class FilmListFragment : Fragment(R.layout.film_list_fragment), FilmListClickLis
     }
 
     private fun updateAdapter(movieList: List<MovieItem>) {
-        recyclerViewFilmList?.adapter = FilmListAdapter(movieList, this)
+        viewBinding?.recyclerViewFilmList?.adapter = FilmListAdapter(movieList, this)
     }
 
     override fun onItemClick(movieItem: MovieItem) {
@@ -112,7 +121,7 @@ class FilmListFragment : Fragment(R.layout.film_list_fragment), FilmListClickLis
     }
 
     private fun setScrollListenerOnFilmList() {
-        recyclerViewFilmList?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        viewBinding?.recyclerViewFilmList?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)

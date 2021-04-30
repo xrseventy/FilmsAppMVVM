@@ -6,9 +6,7 @@
     android:id="@+id/filmListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_900"
-
-    >
+    android:background="@color/background_900">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewFilmList"
@@ -35,7 +33,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerViewFilmList"
         app:layout_constraintVertical_bias="1.0" />
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

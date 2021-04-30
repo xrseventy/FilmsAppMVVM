@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/detailed_film_fragment"
+    style="@style/FragmentTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_900"
-    style="@style/FragmentTheme">
+    android:background="@color/background_900">
 
     <Button
         android:id="@+id/buttonBack"
@@ -20,18 +20,19 @@
 
     <include
         android:id="@+id/imageViewIncludeDetailed"
+        layout="@layout/detailed_film_image"
         android:layout_width="0dp"
         android:layout_height="450dp"
-        layout="@layout/detailed_film_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <include
         android:id="@+id/infoIncludeDetailed"
         layout="@layout/detailed_film_info"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="350dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,29 +43,29 @@
 
 
     <!--    <TextView-->
-<!--        android:id="@+id/textViewTitleDetailedFilm"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="17dp"-->
-<!--        android:layout_marginBottom="18dp"-->
-<!--        android:text="Title"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/textViewDetailedFilmOverview"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/imageViewIncludeDetailed"-->
-<!--        android:textColor="@color/white"/>-->
+    <!--        android:id="@+id/textViewTitleDetailedFilm"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="17dp"-->
+    <!--        android:layout_marginBottom="18dp"-->
+    <!--        android:text="Title"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/textViewDetailedFilmOverview"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/imageViewIncludeDetailed"-->
+    <!--        android:textColor="@color/white"/>-->
 
-<!--    <TextView-->
-<!--        android:id="@+id/textViewDetailedFilmOverview"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_marginStart="11dp"-->
-<!--        android:layout_marginEnd="11dp"-->
-<!--        android:layout_marginBottom="93dp"-->
-<!--        android:text="Overview film"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/buttonBack"-->
-<!--        android:textColor="@color/white"/>-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/textViewDetailedFilmOverview"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_marginStart="11dp"-->
+    <!--        android:layout_marginEnd="11dp"-->
+    <!--        android:layout_marginBottom="93dp"-->
+    <!--        android:text="Overview film"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/buttonBack"-->
+    <!--        android:textColor="@color/white"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
